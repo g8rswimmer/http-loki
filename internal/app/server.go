@@ -10,13 +10,15 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/g8rswimmer/http-loki/internal/app/mux"
 	"github.com/g8rswimmer/http-loki/internal/config"
 )
 
 func Run(values *config.Values) error {
 
 	srvr := http.Server{
-		Addr: ":" + values.Port,
+		Addr:    ":" + values.Port,
+		Handler: mux.Handler(values),
 	}
 
 	go func() {
