@@ -2,9 +2,12 @@ package mock
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 
+	"github.com/g8rswimmer/http-loki/internal/mock/internal/request"
 	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
@@ -22,8 +25,9 @@ func (h *Handler) Add(req model.Request, resp model.Response) {
 }
 
 func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
-	p, err := h.requestPair()
+	p, err := h.requestPair(r)
 	if err != nil {
+		fmt.Println(err)
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
@@ -34,14 +38,27 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
-func (h *Handler) requestPair() (pair, error) {
+func (h *Handler) requestPair(r *http.Request) (pair, error) {
 	if len(h.pairs) == 0 {
 		return pair{}, fmt.Errorf("no request pair")
 	}
+	var requestBody any
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	switch {
+	case errors.Is(err, io.EOF):
+	case err != nil:
+		return pair{}, err
+	default:
+	}
 	for _, p := range h.pairs {
-		if p.request.Body == nil {
+		switch {
+		case p.request.Body == nil && requestBody == nil:
 			return p, nil
+		case request.Compare(requestBody, p.request.Body):
+			return p, nil
+		default:
 		}
+
 	}
 	return pair{}, fmt.Errorf("no request pair")
 }
