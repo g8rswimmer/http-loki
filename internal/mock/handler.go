@@ -90,6 +90,14 @@ func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 		return nil, pair{}, err
 	default:
 	}
+	var requestBody any
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	switch {
+	case errors.Is(err, io.EOF):
+	case err != nil:
+		return pair{}, err
+	default:
+	}
 	for _, p := range h.pairs {
 		switch {
 		case p.request.Body == nil && requestBody == nil:
