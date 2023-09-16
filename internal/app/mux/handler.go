@@ -10,8 +10,11 @@ import (
 func Handler(values *config.Values) http.Handler {
 	router := mux.NewRouter()
 
-	router.Methods(http.MethodGet).HandlerFunc(home).Name("home")
+	router.Methods(http.MethodGet).Path("/").HandlerFunc(home).Name("home")
 
+	if len(values.MockDir) > 0 {
+		loadFromDir(values.MockDir, router)
+	}
 	return router
 
 }
