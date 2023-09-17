@@ -34,6 +34,10 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("content-type", "application/json")
 	w.WriteHeader(p.response.StatusCode)
+	if p.response.Body == nil {
+		w.Write([]byte("{}"))
+		return
+	}
 	payload, _ := json.Marshal(p.response.Body)
 	w.Write(payload)
 }
