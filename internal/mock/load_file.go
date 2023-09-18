@@ -1,4 +1,4 @@
-package mux
+package mock
 
 import (
 	"encoding/json"
@@ -11,11 +11,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func loadFromDir(dir string, router *mux.Router) {
+func AddRoutesFromDirectory(dir string, router *mux.Router) error {
+	if len(dir) == 0 {
+		return nil
+	}
 
 	ep := endpoints{}
 
-	_ = filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
+	err := filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
 		switch {
 		case err != nil:
 			return err
@@ -33,6 +36,8 @@ func loadFromDir(dir string, router *mux.Router) {
 		return nil
 	})
 
+	return err
+
 }
 
 func loadMockEndpoint(path string, info fs.FileInfo) (*model.Mock, error) {
@@ -47,4 +52,11 @@ func loadMockEndpoint(path string, info fs.FileInfo) (*model.Mock, error) {
 		return nil, fmt.Errorf("load mock handler file [%s] decode %w", path, err)
 	}
 	return ep, nil
+}
+
+func add(m *model.Mock, ep endpoints, route *mux.Router) {
+	if has := ep.add(m); !has {
+		fmt.Println(m.Method, m.Endpoint)
+		route.Methods(m.Method).Path(m.Endpoint).HandlerFunc(ep.handler(m).HTTPHandler)
+	}
 }

@@ -5,6 +5,7 @@ import (
 
 	"github.com/g8rswimmer/http-loki/internal/app"
 	"github.com/g8rswimmer/http-loki/internal/config"
+	"github.com/g8rswimmer/http-loki/internal/mock"
 )
 
 func main() {
@@ -13,7 +14,13 @@ func main() {
 		log.Panicf("config values: %v", err)
 	}
 
-	if err := app.Run(value); err != nil {
+	handler := newRouter()
+
+	if err := mock.AddRoutesFromDirectory(value.MockDir, handler); err != nil {
+		log.Panicf("unable to load mock files: %v", err)
+	}
+
+	if err := app.Run(value.Port, handler); err != nil {
 		log.Panicf("app server: %v", err)
 	}
 }
