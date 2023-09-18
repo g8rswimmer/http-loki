@@ -28,6 +28,7 @@ func loadFromDir(dir string, router *mux.Router) {
 		if err != nil {
 			return err
 		}
+
 		add(m, ep, router)
 		return nil
 	})

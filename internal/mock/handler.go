@@ -9,19 +9,21 @@ import (
 
 	"github.com/g8rswimmer/http-loki/internal/mock/internal/request"
 	"github.com/g8rswimmer/http-loki/internal/model"
+	"github.com/g8rswimmer/http-loki/internal/variable"
 )
 
 type pair struct {
-	request  model.Request
-	response model.Response
+	request   model.Request
+	response  model.Response
+	variables []variable.Body
 }
 
 type Handler struct {
 	pairs []pair
 }
 
-func (h *Handler) Add(req model.Request, resp model.Response) {
-	h.pairs = append(h.pairs, pair{request: req, response: resp})
+func (h *Handler) Add(req model.Request, resp model.Response, v []variable.Body) {
+	h.pairs = append(h.pairs, pair{request: req, response: resp, variables: v})
 }
 
 func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {

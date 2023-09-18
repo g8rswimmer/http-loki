@@ -1,0 +1,22 @@
+{
+    "method": "POST",
+    "endpoint": "/post-vars-mock-example",
+    "request":{
+        "body":{
+            "first": "Jon",
+            "last": "Doe",
+            "varable": "{{ some varable }}",
+            "deep": {
+                "other_varialbe": "{{ some other varable }}"
+            }
+        }
+    },
+    "response":{
+        "status_code": 201,
+        "body": {
+            "msg": "Post Variable Mock Example",
+            "number": 98,
+            "boolean": true
+        }
+    }
+}
