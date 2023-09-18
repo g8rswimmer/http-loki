@@ -1,6 +1,8 @@
 package request
 
-import "reflect"
+import (
+	"reflect"
+)
 
 func Compare(reqBody, mockBody any) bool {
 	return reflect.DeepEqual(reqBody, mockBody)
