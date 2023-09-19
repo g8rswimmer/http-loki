@@ -5,9 +5,9 @@
         "body":{
             "first": "Jon",
             "last": "Doe",
-            "varable": "{{ some varable }}",
+            "varable": "{{ uuid }}",
             "deep": {
-                "other_varialbe": "{{ some other varable }}"
+                "other_varialbe": "{{ intRange:-10|10 }}"
             }
         }
     },

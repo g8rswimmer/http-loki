@@ -1,6 +1,8 @@
 package mock
 
 import (
+	"fmt"
+
 	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable"
 )
@@ -17,6 +19,7 @@ func (e endpoints) add(m *model.Mock) bool {
 	if m.Request.Body != nil {
 		vars = variable.BodyPaths(m.Request.Body, "", []variable.Body{})
 	}
+	fmt.Printf("%+v\n", vars)
 	e[k].Add(m.Request, m.Response, vars)
 	return ok
 }

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"reflect"
 
-	"github.com/g8rswimmer/http-loki/internal/mock/internal/request"
 	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable"
 )
@@ -60,11 +60,31 @@ func (h *Handler) requestPair(r *http.Request) (pair, error) {
 		switch {
 		case p.request.Body == nil && requestBody == nil:
 			return p, nil
-		case request.Compare(requestBody, p.request.Body):
+		case h.validateRequest(requestBody, p.request.Body, p):
 			return p, nil
 		default:
 		}
 
 	}
 	return pair{}, fmt.Errorf("no request pair")
+}
+
+func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
+	enc, err := json.Marshal(reqBody)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	rStr, err := variable.Validate(string(enc), p.variables)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	if err := json.Unmarshal([]byte(rStr), &reqBody); err != nil {
+		fmt.Println(err)
+		return false
+	}
+	fmt.Println("comparing")
+	fmt.Println(rStr)
+	return reflect.DeepEqual(reqBody, mockBody)
 }

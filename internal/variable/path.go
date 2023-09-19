@@ -6,8 +6,9 @@ import (
 )
 
 type Body struct {
-	Path     string
-	Variable string
+	Path string
+	Func string
+	Args []string
 }
 
 func BodyPaths(body any, currPath string, paths []Body) []Body {
@@ -28,8 +29,22 @@ func mapPaths(body map[string]any, currPath string, paths []Body) []Body {
 		switch value := v.(type) {
 		case string:
 			if strings.HasPrefix(value, "{{") && strings.HasSuffix(value, "}}") {
-				paths = append(paths, Body{Path: currPath + k, Variable: value})
-				delete(body, k)
+				vars := strings.TrimPrefix(value, "{{")
+				vars = strings.TrimSuffix(vars, "}}")
+				vars = strings.TrimSpace(vars)
+				s := strings.Split(vars, ":")
+				b := Body{
+					Path: currPath + k,
+					Func: s[0],
+					Args: func() []string {
+						if len(s) > 1 {
+							return strings.Split(s[1], "|")
+						}
+						return []string{}
+					}(),
+				}
+				paths = append(paths, b)
+				body[k] = "ignore"
 			}
 		case map[string]any, []any:
 			paths = BodyPaths(v, currPath+k, paths)
