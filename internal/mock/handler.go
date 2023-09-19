@@ -149,3 +149,23 @@ func (h *Handler) replaceResponse(requestBody, responseBody any, p pair) (string
 	}
 	return rStr, nil
 }
+
+func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
+	enc, err := json.Marshal(reqBody)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	rStr, err := variable.Validate(string(enc), p.variables)
+	if err != nil {
+		fmt.Println(err)
+		return false
+	}
+	if err := json.Unmarshal([]byte(rStr), &reqBody); err != nil {
+		fmt.Println(err)
+		return false
+	}
+	fmt.Println("comparing")
+	fmt.Println(rStr)
+	return reflect.DeepEqual(reqBody, mockBody)
+}
