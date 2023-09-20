@@ -1,4 +1,4 @@
-package variable
+package validate
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func validateRegEx(req string, path string, args []string) error {
+func RegEx(req string, path string, args []string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("request arg length is not two %d", len(args))
 	}

@@ -3,21 +3,22 @@ package variable
 import (
 	"fmt"
 
+	"github.com/g8rswimmer/http-loki/internal/variable/internal/validate"
 	"github.com/tidwall/sjson"
 )
 
 type validation func(string, string, []string) error
 
-var varMap = map[string]validation{
-	"uuid":     validateUUID,
-	"intRange": validateIntRange,
-	"ignore":   validateIgnore,
-	"regex":    validateRegEx,
+var validations = map[string]validation{
+	"uuid":     validate.UUID,
+	"intRange": validate.IntRange,
+	"ignore":   validate.Ignore,
+	"regex":    validate.RegEx,
 }
 
 func Validate(req string, vars []Body) (string, error) {
 	for _, v := range vars {
-		f, has := varMap[v.Func]
+		f, has := validations[v.Func]
 		if !has {
 			return "", fmt.Errorf("variable validation func not found %s", v.Func)
 		}

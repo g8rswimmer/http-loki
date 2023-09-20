@@ -1,4 +1,4 @@
-package variable
+package validate
 
 import (
 	"fmt"
@@ -8,13 +8,13 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func validateIntRange(req string, path string, args []string) error {
+func IntRange(req string, path string, args []string) error {
+	if len(args) != 2 {
+		return fmt.Errorf("request arg length is not two %d", len(args))
+	}
 	result := gjson.Get(req, path)
 	if result.Type != gjson.Number {
 		return fmt.Errorf("request path %s is not a number", path)
-	}
-	if len(args) != 2 {
-		return fmt.Errorf("request arg length is not two %d", len(args))
 	}
 	low, err := strconv.Atoi(args[0])
 	if err != nil {
