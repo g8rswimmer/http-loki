@@ -13,6 +13,9 @@ func validateIntRange(req string, path string, args []string) error {
 	if result.Type != gjson.Number {
 		return fmt.Errorf("request path %s is not a number", path)
 	}
+	if len(args) != 2 {
+		return fmt.Errorf("request arg length is not two %d", len(args))
+	}
 	low, err := strconv.Atoi(args[0])
 	if err != nil {
 		return fmt.Errorf("request arg is not a number %s", args[0])
