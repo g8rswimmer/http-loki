@@ -7,8 +7,10 @@
             "last": "Doe",
             "varable": "{{ uuid }}",
             "deep": {
-                "other_varialbe": "{{ intRange:-10|10 }}"
-            }
+                "other_varialbe": "{{ intRange:-10|10 }}",
+                "ignore_this": "{{ ignore }}"
+            },
+            "some_regex": "{{ regex:p([a-z]+)ch }}"
         }
     },
     "response":{

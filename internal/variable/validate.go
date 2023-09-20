@@ -11,6 +11,8 @@ type validation func(string, string, []string) error
 var varMap = map[string]validation{
 	"uuid":     validateUUID,
 	"intRange": validateIntRange,
+	"ignore":   validateIgnore,
+	"regex":    validateRegEx,
 }
 
 func Validate(req string, vars []Body) (string, error) {
