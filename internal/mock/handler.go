@@ -95,7 +95,7 @@ func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 	switch {
 	case errors.Is(err, io.EOF):
 	case err != nil:
-		return pair{}, err
+		return nil, pair{}, err
 	default:
 	}
 	for _, p := range h.pairs {
@@ -156,7 +156,7 @@ func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
 		fmt.Println(err)
 		return false
 	}
-	rStr, err := variable.Validate(string(enc), p.variables)
+	rStr, err := variable.Validate(string(enc), p.requestVars)
 	if err != nil {
 		fmt.Println(err)
 		return false
@@ -168,4 +168,23 @@ func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
 	fmt.Println("comparing")
 	fmt.Println(rStr)
 	return reflect.DeepEqual(reqBody, mockBody)
+}
+
+func (h *Handler) replaceResponse(requestBody, responseBody any, p pair) (string, error) {
+	resp, err := json.Marshal(responseBody)
+	if err != nil {
+		fmt.Println(err)
+		return "", fmt.Errorf("response body marshal %w", err)
+	}
+	req, err := json.Marshal(requestBody)
+	if err != nil {
+		fmt.Println(err)
+		return "", fmt.Errorf("request body marshal %w", err)
+	}
+	rStr, err := variable.Replace(string(req), string(resp), p.responseVars)
+	if err != nil {
+		fmt.Println(err)
+		return "", fmt.Errorf("response body replace %w", err)
+	}
+	return rStr, nil
 }

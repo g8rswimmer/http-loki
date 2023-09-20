@@ -18,7 +18,10 @@
         "body": {
             "msg": "Post Variable Mock Example",
             "number": 98,
-            "boolean": true
+            "boolean": true,
+            "id": "{{ uuid }}",
+            "last": "{{ path:varable }}"
         }
+ 
     }
 }
