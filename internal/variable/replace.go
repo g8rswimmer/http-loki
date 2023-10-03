@@ -15,12 +15,12 @@ var replacements = map[string]replacement{
 
 func Replace(req, resp string, vars []Body) (string, error) {
 	for _, v := range vars {
-		f, has := replacements[v.Func]
+		repFunc, has := replacements[v.Func]
 		if !has {
 			return "", fmt.Errorf("variable validation func not found %s", v.Func)
 		}
 		var err error
-		resp, err = f(req, resp, v.Path, v.Args)
+		resp, err = repFunc(req, resp, v.Path, v.Args)
 		if err != nil {
 			return "", fmt.Errorf("variable validation %w", err)
 		}

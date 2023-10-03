@@ -20,7 +20,7 @@ func TestUUID(t *testing.T) {
 			name: "success",
 			args: args{
 				req: map[string]any{
-					"id": "uuid",
+					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
 				},
 				path: "id",
 			},
