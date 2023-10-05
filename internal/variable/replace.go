@@ -7,7 +7,7 @@ import (
 	"github.com/g8rswimmer/http-loki/internal/variable/internal/replace"
 )
 
-type replacement func(string, string, string, []string) (string, error)
+type replacement func(string, string, model.BodyVariable) (string, error)
 
 var replacements = map[string]replacement{
 	"uuid": replace.UUID,
@@ -21,7 +21,7 @@ func Replace(req, resp string, vars []model.BodyVariable) (string, error) {
 			return "", fmt.Errorf("variable validation func not found %s", v.Func)
 		}
 		var err error
-		resp, err = repFunc(req, resp, v.Path, v.Args)
+		resp, err = repFunc(req, resp, v)
 		if err != nil {
 			return "", fmt.Errorf("variable validation %w", err)
 		}

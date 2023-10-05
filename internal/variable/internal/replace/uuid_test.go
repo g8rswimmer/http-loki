@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -11,8 +12,7 @@ func TestUUID(t *testing.T) {
 	type args struct {
 		in0  string
 		resp any
-		path string
-		in3  []string
+		bv   model.BodyVariable
 	}
 	tests := []struct {
 		name    string
@@ -26,7 +26,9 @@ func TestUUID(t *testing.T) {
 				resp: map[string]any{
 					"id": 42,
 				},
-				path: "id",
+				bv: model.BodyVariable{
+					Path: "id",
+				},
 			},
 			want:    "id",
 			wantErr: false,
@@ -39,7 +41,7 @@ func TestUUID(t *testing.T) {
 				t.Errorf("response encoding error %v", err)
 				return
 			}
-			newResp, err := UUID(tt.args.in0, string(resp), tt.args.path, tt.args.in3)
+			newResp, err := UUID(tt.args.in0, string(resp), tt.args.bv)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("UUID() error = %v, wantErr %v", err, tt.wantErr)
 				return

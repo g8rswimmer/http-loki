@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"reflect"
 	"testing"
+
+	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
 func TestPath(t *testing.T) {
 	type args struct {
 		req  any
 		resp any
-		path string
-		args []string
+		bv   model.BodyVariable
 	}
 	tests := []struct {
 		name    string
@@ -31,8 +32,10 @@ func TestPath(t *testing.T) {
 					"replace": "nothing",
 					"hello":   42.0,
 				},
-				path: "replace",
-				args: []string{"new_path"},
+				bv: model.BodyVariable{
+					Path: "replace",
+					Args: []string{"new_path"},
+				},
 			},
 			want: map[string]any{
 				"replace": "this is what it should say",
@@ -52,8 +55,10 @@ func TestPath(t *testing.T) {
 					"replace": "nothing",
 					"hello":   42.0,
 				},
-				path: "replace",
-				args: []string{},
+				bv: model.BodyVariable{
+					Path: "replace",
+					Args: []string{},
+				},
 			},
 			want:    nil,
 			wantErr: true,
@@ -71,7 +76,7 @@ func TestPath(t *testing.T) {
 				t.Errorf("response encoding error %v", err)
 				return
 			}
-			newResp, err := Path(string(req), string(resp), tt.args.path, tt.args.args)
+			newResp, err := Path(string(req), string(resp), tt.args.bv)
 			switch {
 			case (err != nil) != tt.wantErr:
 				t.Errorf("Path() error = %v, wantErr %v", err, tt.wantErr)
