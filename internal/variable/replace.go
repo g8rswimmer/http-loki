@@ -3,6 +3,7 @@ package variable
 import (
 	"fmt"
 
+	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable/internal/replace"
 )
 
@@ -13,7 +14,7 @@ var replacements = map[string]replacement{
 	"path": replace.Path,
 }
 
-func Replace(req, resp string, vars []Body) (string, error) {
+func Replace(req, resp string, vars []model.BodyVariable) (string, error) {
 	for _, v := range vars {
 		repFunc, has := replacements[v.Func]
 		if !has {

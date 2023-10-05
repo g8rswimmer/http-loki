@@ -15,15 +15,15 @@ import (
 type pair struct {
 	request      model.Request
 	response     model.Response
-	requestVars  []variable.Body
-	responseVars []variable.Body
+	requestVars  []model.BodyVariable
+	responseVars []model.BodyVariable
 }
 
 type Handler struct {
 	pairs []pair
 }
 
-func (h *Handler) Add(req model.Request, reqVars []variable.Body, resp model.Response, respVars []variable.Body) {
+func (h *Handler) Add(req model.Request, reqVars []model.BodyVariable, resp model.Response, respVars []model.BodyVariable) {
 	p := pair{
 		request:      req,
 		response:     resp,

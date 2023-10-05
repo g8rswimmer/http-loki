@@ -13,13 +13,13 @@ func (e endpoints) add(m *model.Mock) bool {
 	if !ok {
 		e[k] = &Handler{}
 	}
-	var reqVars []variable.Body
+	var reqVars []model.BodyVariable
 	if m.Request.Body != nil {
-		reqVars = variable.BodyPaths(m.Request.Body, "", []variable.Body{})
+		reqVars = variable.BodyPaths(m.Request.Body, "", []model.BodyVariable{})
 	}
-	var respVars []variable.Body
+	var respVars []model.BodyVariable
 	if m.Response.Body != nil {
-		respVars = variable.BodyPaths(m.Response.Body, "", []variable.Body{})
+		respVars = variable.BodyPaths(m.Response.Body, "", []model.BodyVariable{})
 	}
 	e[k].Add(m.Request, reqVars, m.Response, respVars)
 	return ok

@@ -3,6 +3,7 @@ package variable
 import (
 	"fmt"
 
+	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable/internal/validate"
 	"github.com/tidwall/sjson"
 )
@@ -16,7 +17,7 @@ var validations = map[string]validation{
 	"regex":    validate.RegEx,
 }
 
-func Validate(req string, vars []Body) (string, error) {
+func Validate(req string, vars []model.BodyVariable) (string, error) {
 	for _, v := range vars {
 		valFunc, has := validations[v.Func]
 		if !has {

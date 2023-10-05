@@ -3,15 +3,11 @@ package variable
 import (
 	"log"
 	"strings"
+
+	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
-type Body struct {
-	Path string
-	Func string
-	Args []string
-}
-
-func BodyPaths(body any, currPath string, paths []Body) []Body {
+func BodyPaths(body any, currPath string, paths []model.BodyVariable) []model.BodyVariable {
 	switch v := body.(type) {
 	case map[string]any:
 		paths = mapPaths(v, currPath, paths)
@@ -21,7 +17,7 @@ func BodyPaths(body any, currPath string, paths []Body) []Body {
 	return paths
 }
 
-func mapPaths(body map[string]any, currPath string, paths []Body) []Body {
+func mapPaths(body map[string]any, currPath string, paths []model.BodyVariable) []model.BodyVariable {
 	if len(currPath) > 0 {
 		currPath += "."
 	}
@@ -33,7 +29,7 @@ func mapPaths(body map[string]any, currPath string, paths []Body) []Body {
 				vars = strings.TrimSuffix(vars, "}}")
 				vars = strings.TrimSpace(vars)
 				s := strings.Split(vars, ":")
-				b := Body{
+				b := model.BodyVariable{
 					Path: currPath + k,
 					Func: s[0],
 					Args: func() []string {
