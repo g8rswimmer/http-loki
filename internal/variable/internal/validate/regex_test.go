@@ -3,11 +3,14 @@ package validate
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
 func TestRegEx(t *testing.T) {
 	type args struct {
 		req  any
+		bv   model.BodyVariable
 		path string
 		args []string
 	}
@@ -22,8 +25,10 @@ func TestRegEx(t *testing.T) {
 				req: map[string]any{
 					"reg_it": "peach",
 				},
-				path: "reg_it",
-				args: []string{"p([a-z]+)ch"},
+				bv: model.BodyVariable{
+					Path: "reg_it",
+					Args: []string{"p([a-z]+)ch"},
+				},
 			},
 			wantErr: false,
 		},
@@ -33,8 +38,10 @@ func TestRegEx(t *testing.T) {
 				req: map[string]any{
 					"reg_it": "nope",
 				},
-				path: "reg_it",
-				args: []string{"p([a-z]+)ch"},
+				bv: model.BodyVariable{
+					Path: "reg_it",
+					Args: []string{"p([a-z]+)ch"},
+				},
 			},
 			wantErr: true,
 		},
@@ -44,8 +51,10 @@ func TestRegEx(t *testing.T) {
 				req: map[string]any{
 					"reg_it": "peach",
 				},
-				path: "reg_it",
-				args: []string{},
+				bv: model.BodyVariable{
+					Path: "reg_it",
+					Args: []string{},
+				},
 			},
 			wantErr: true,
 		},
@@ -57,7 +66,7 @@ func TestRegEx(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := RegEx(string(req), tt.args.path, tt.args.args); (err != nil) != tt.wantErr {
+			if err := RegEx(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("RegEx() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

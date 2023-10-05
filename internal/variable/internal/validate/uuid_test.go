@@ -3,13 +3,14 @@ package validate
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
 func TestUUID(t *testing.T) {
 	type args struct {
-		req  any
-		path string
-		in2  []string
+		req any
+		bv  model.BodyVariable
 	}
 	tests := []struct {
 		name    string
@@ -22,7 +23,9 @@ func TestUUID(t *testing.T) {
 				req: map[string]any{
 					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
 				},
-				path: "id",
+				bv: model.BodyVariable{
+					Path: "id",
+				},
 			},
 			wantErr: false,
 		},
@@ -32,7 +35,9 @@ func TestUUID(t *testing.T) {
 				req: map[string]any{
 					"id": "uuid",
 				},
-				path: "id",
+				bv: model.BodyVariable{
+					Path: "id",
+				},
 			},
 			wantErr: true,
 		},
@@ -42,7 +47,9 @@ func TestUUID(t *testing.T) {
 				req: map[string]any{
 					"id": 77,
 				},
-				path: "id",
+				bv: model.BodyVariable{
+					Path: "id",
+				},
 			},
 			wantErr: true,
 		},
@@ -54,7 +61,7 @@ func TestUUID(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := UUID(string(req), tt.args.path, tt.args.in2); (err != nil) != tt.wantErr {
+			if err := UUID(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("UUID() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

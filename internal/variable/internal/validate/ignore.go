@@ -1,5 +1,7 @@
 package validate
 
-func Ignore(_ string, _ string, _ []string) error {
+import "github.com/g8rswimmer/http-loki/internal/model"
+
+func Ignore(_ string, _ model.BodyVariable) error {
 	return nil
 }

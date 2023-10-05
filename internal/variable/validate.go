@@ -8,7 +8,7 @@ import (
 	"github.com/tidwall/sjson"
 )
 
-type validation func(string, string, []string) error
+type validation func(string, model.BodyVariable) error
 
 var validations = map[string]validation{
 	"uuid":     validate.UUID,
@@ -23,7 +23,7 @@ func Validate(req string, vars []model.BodyVariable) (string, error) {
 		if !has {
 			return "", fmt.Errorf("variable validation func not found %s", v.Func)
 		}
-		err := valFunc(req, v.Path, v.Args)
+		err := valFunc(req, v)
 		if err != nil {
 			return "", fmt.Errorf("variable validation %w", err)
 		}

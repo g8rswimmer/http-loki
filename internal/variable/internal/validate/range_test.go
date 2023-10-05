@@ -3,13 +3,14 @@ package validate
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
 func TestIntRange(t *testing.T) {
 	type args struct {
-		req  any
-		path string
-		args []string
+		req any
+		bv  model.BodyVariable
 	}
 	tests := []struct {
 		name    string
@@ -23,8 +24,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": 6,
 				},
-				path: "number",
-				args: []string{"-10", "10"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"-10", "10"},
+				},
 			},
 			wantErr: false,
 		},
@@ -35,8 +38,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": 100,
 				},
-				path: "number",
-				args: []string{"-10", "10"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"-10", "10"},
+				},
 			},
 			wantErr: true,
 		},
@@ -47,8 +52,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": 6,
 				},
-				path: "number",
-				args: []string{"-10"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"-10"},
+				},
 			},
 			wantErr: true,
 		},
@@ -59,8 +66,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": "6",
 				},
-				path: "number",
-				args: []string{"-10", "10"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"-10", "10"},
+				},
 			},
 			wantErr: true,
 		},
@@ -71,8 +80,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": 6,
 				},
-				path: "number",
-				args: []string{"hi", "10"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"hi", "10"},
+				},
 			},
 			wantErr: true,
 		},
@@ -83,8 +94,10 @@ func TestIntRange(t *testing.T) {
 					"id":     "hi",
 					"number": 6,
 				},
-				path: "number",
-				args: []string{"-10", "bye"},
+				bv: model.BodyVariable{
+					Path: "number",
+					Args: []string{"-10", "bye"},
+				},
 			},
 			wantErr: true,
 		},
@@ -96,7 +109,7 @@ func TestIntRange(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := IntRange(string(req), tt.args.path, tt.args.args); (err != nil) != tt.wantErr {
+			if err := IntRange(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("IntRange() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
