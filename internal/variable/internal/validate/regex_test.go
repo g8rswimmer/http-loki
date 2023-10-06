@@ -9,10 +9,8 @@ import (
 
 func TestRegEx(t *testing.T) {
 	type args struct {
-		req  any
-		bv   model.BodyVariable
-		path string
-		args []string
+		req any
+		bv  model.BodyVariable
 	}
 	tests := []struct {
 		name    string
@@ -28,6 +26,34 @@ func TestRegEx(t *testing.T) {
 				bv: model.BodyVariable{
 					Path: "reg_it",
 					Args: []string{"p([a-z]+)ch"},
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "success prefix",
+			args: args{
+				req: map[string]any{
+					"reg_it": "nope peach",
+				},
+				bv: model.BodyVariable{
+					Path:   "reg_it",
+					Args:   []string{"p([a-z]+)ch"},
+					Prefix: "nope ",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "success suffix",
+			args: args{
+				req: map[string]any{
+					"reg_it": "peach after",
+				},
+				bv: model.BodyVariable{
+					Path:   "reg_it",
+					Args:   []string{"p([a-z]+)ch"},
+					Suffix: " after",
 				},
 			},
 			wantErr: false,

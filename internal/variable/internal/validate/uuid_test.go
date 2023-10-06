@@ -30,6 +30,32 @@ func TestUUID(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "success prefix",
+			args: args{
+				req: map[string]any{
+					"id": "prefix|b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
+				},
+				bv: model.BodyVariable{
+					Path:   "id",
+					Prefix: "prefix|",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "success suffix",
+			args: args{
+				req: map[string]any{
+					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf::suffix",
+				},
+				bv: model.BodyVariable{
+					Path:   "id",
+					Suffix: "::suffix",
+				},
+			},
+			wantErr: false,
+		},
+		{
 			name: "invalid",
 			args: args{
 				req: map[string]any{
