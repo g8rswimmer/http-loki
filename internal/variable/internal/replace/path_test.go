@@ -44,6 +44,77 @@ func TestPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "success number",
+			args: args{
+				req: map[string]any{
+					"other":    3,
+					"new_path": 27.0,
+					"others":   true,
+				},
+				resp: map[string]any{
+					"replace": "nothing",
+					"hello":   42.0,
+				},
+				bv: model.BodyVariable{
+					Path: "replace",
+					Args: []string{"new_path"},
+				},
+			},
+			want: map[string]any{
+				"replace": 27.0,
+				"hello":   42.0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "success prefix",
+			args: args{
+				req: map[string]any{
+					"other":    3,
+					"new_path": "this is what it should say",
+					"others":   true,
+				},
+				resp: map[string]any{
+					"replace": "nothing",
+					"hello":   42.0,
+				},
+				bv: model.BodyVariable{
+					Path:   "replace",
+					Args:   []string{"new_path"},
+					Prefix: "Hi, ",
+				},
+			},
+			want: map[string]any{
+				"replace": "Hi, this is what it should say",
+				"hello":   42.0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "success suffic",
+			args: args{
+				req: map[string]any{
+					"other":    3,
+					"new_path": "this is what it should say",
+					"others":   true,
+				},
+				resp: map[string]any{
+					"replace": "nothing",
+					"hello":   42.0,
+				},
+				bv: model.BodyVariable{
+					Path:   "replace",
+					Args:   []string{"new_path"},
+					Suffix: ", Bye",
+				},
+			},
+			want: map[string]any{
+				"replace": "this is what it should say, Bye",
+				"hello":   42.0,
+			},
+			wantErr: false,
+		},
+		{
 			name: "no args",
 			args: args{
 				req: map[string]any{

@@ -6,17 +6,17 @@ import (
 	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
-func BodyPaths(body any, currPath string, paths []model.BodyVariable) []model.BodyVariable {
+func BodyPaths(body any, currPath string, bvs []model.BodyVariable) []model.BodyVariable {
 	switch v := body.(type) {
 	case map[string]any:
-		paths = mapPaths(v, currPath, paths)
+		bvs = mapPaths(v, currPath, bvs)
 	default:
 		log.Panicf("not supported %T %v", v, v)
 	}
-	return paths
+	return bvs
 }
 
-func mapPaths(body map[string]any, currPath string, paths []model.BodyVariable) []model.BodyVariable {
+func mapPaths(body map[string]any, currPath string, bvs []model.BodyVariable) []model.BodyVariable {
 	if len(currPath) > 0 {
 		currPath += "."
 	}
@@ -24,13 +24,13 @@ func mapPaths(body map[string]any, currPath string, paths []model.BodyVariable) 
 		switch value := v.(type) {
 		case string:
 			if bv, has := model.BodyVariableFromString(currPath+k, value); has {
-				paths = append(paths, bv)
+				bvs = append(bvs, bv)
 				body[k] = "ignore"
 			}
 		case map[string]any, []any:
-			paths = BodyPaths(v, currPath+k, paths)
+			bvs = BodyPaths(v, currPath+k, bvs)
 		default:
 		}
 	}
-	return paths
+	return bvs
 }

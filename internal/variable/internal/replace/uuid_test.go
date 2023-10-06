@@ -2,6 +2,7 @@ package replace
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/g8rswimmer/http-loki/internal/model"
@@ -33,6 +34,34 @@ func TestUUID(t *testing.T) {
 			want:    "id",
 			wantErr: false,
 		},
+		{
+			name: "success with prefix",
+			args: args{
+				resp: map[string]any{
+					"id": 42,
+				},
+				bv: model.BodyVariable{
+					Path:   "id",
+					Prefix: "my prefix",
+				},
+			},
+			want:    "id",
+			wantErr: false,
+		},
+		{
+			name: "success with suffic",
+			args: args{
+				resp: map[string]any{
+					"id": 42,
+				},
+				bv: model.BodyVariable{
+					Path:   "id",
+					Suffix: "my suffix",
+				},
+			},
+			want:    "id",
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -56,6 +85,23 @@ func TestUUID(t *testing.T) {
 				t.Errorf("new response uuid assert %T", got[tt.want])
 				return
 			}
+			switch {
+			case len(tt.args.bv.Prefix) == 0:
+			case !strings.HasPrefix(v, tt.args.bv.Prefix):
+				t.Errorf("new response value does not have prefix %s %s", tt.args.bv.Prefix, v)
+				return
+			default:
+				v = strings.TrimPrefix(v, tt.args.bv.Prefix)
+			}
+			switch {
+			case len(tt.args.bv.Suffix) == 0:
+			case !strings.HasSuffix(v, tt.args.bv.Suffix):
+				t.Errorf("new response value does not have suffix %s %s", tt.args.bv.Suffix, v)
+				return
+			default:
+				v = strings.TrimSuffix(v, tt.args.bv.Suffix)
+			}
+
 			if err := validator.New().Var(v, "uuid4"); err != nil {
 				t.Errorf("new response uuid validation error %s", v)
 			}

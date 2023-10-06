@@ -10,7 +10,8 @@ import (
 
 func UUID(_, resp string, bv model.BodyVariable) (string, error) {
 	u := uuid.NewString()
-	resp, err := sjson.Set(resp, bv.Path, u)
+	value := bv.Prefix + u + bv.Suffix
+	resp, err := sjson.Set(resp, bv.Path, value)
 	if err != nil {
 		return "", fmt.Errorf("response setting error %w", err)
 	}
