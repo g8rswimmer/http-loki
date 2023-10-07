@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/g8rswimmer/http-loki/cmd/server/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/app"
 	"github.com/g8rswimmer/http-loki/internal/config"
 	"github.com/g8rswimmer/http-loki/internal/mock"
@@ -14,7 +15,7 @@ func main() {
 		log.Panicf("config values: %v", err)
 	}
 
-	handler := newRouter()
+	handler := httpx.NewRouter()
 
 	if err := mock.AddRoutesFromDirectory(value.MockDir, handler); err != nil {
 		log.Panicf("unable to load mock files: %v", err)

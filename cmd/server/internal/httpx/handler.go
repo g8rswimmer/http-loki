@@ -1,4 +1,4 @@
-package main
+package httpx
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func newRouter() *mux.Router {
+func NewRouter() *mux.Router {
 	router := mux.NewRouter()
 
 	router.Methods(http.MethodGet).Path("/").HandlerFunc(home).Name("home")
