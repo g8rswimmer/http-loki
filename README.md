@@ -11,9 +11,15 @@ For example, to validate that a field is an number with the range of -10 to 10 t
 ### Request
 Variables for request bodies will validate the body that is being received.
 
+| Name       | Arguments | Prefix/Suffix Supported | Description                                          | Example                   |
+|------------|-----------|-------------------------|------------------------------------------------------|---------------------------|
+| `uuid`     | none      | Y                       | Validates if the field is UUIDv4 format              | `{{ uuid }}`              |
+| `intRange` | min\|max  | N                       | Validates that the field is an int between the range | `{{ iontRange:-10\|10 }}` |
+
 | Name | Description | Arguements | Prefix/Suffix Supported | Example |
+|------|-------------|-------------|-----------------------|-----------|
 | `uuid` | Validates if the field is UUIDv4 format | none | Y | `{{ uuid }}` |
-| 'intRange` | Validates that the field is an int between the range | min and max | N | `{{ intRange:-10|10 }}` |
+| `intRange` | Validates that the field is an int between the range | min and max | N | `{{ intRange:-10|10 }}` |
 | `ignore` | Will ignore that value when comparing | none | Y | `{{ ignore }}` |
 | `regex` | Validates against a regex expersion | expersion | Y | `{{ regex:p([a-z]+)ch }}` |
 
