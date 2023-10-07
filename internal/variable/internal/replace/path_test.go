@@ -2,10 +2,10 @@ package replace
 
 import (
 	"encoding/json"
-	"reflect"
 	"testing"
 
 	"github.com/g8rswimmer/http-loki/internal/model"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPath(t *testing.T) {
@@ -159,9 +159,7 @@ func TestPath(t *testing.T) {
 					t.Errorf("new response encoding %v", err)
 					return
 				}
-				if !reflect.DeepEqual(got, tt.want) {
-					t.Errorf("Path() = %v, want %v", got, tt.want)
-				}
+				assert.Equal(t, tt.want, got)
 			}
 
 		})

@@ -12,6 +12,10 @@ import (
 	"github.com/g8rswimmer/http-loki/internal/variable"
 )
 
+const (
+	errorStatusCode = 477
+)
+
 type pair struct {
 	request      model.Request
 	response     model.Response
@@ -37,25 +41,43 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	rb, p, err := h.requestPair(r)
 	if err != nil {
 		fmt.Println(err)
-		w.WriteHeader(http.StatusMethodNotAllowed)
+		h.errorResponse(w, errorStatusCode, "mock request error", err)
 		return
 	}
 
-	w.Header().Add("content-type", "application/json")
 	statusCode := p.response.StatusCode
 	respBody := "{}"
 	if p.response.Body != nil {
 		r, err := h.replaceResponse(rb, p.response.Body, p)
 		if err != nil {
-			statusCode = http.StatusMethodNotAllowed
+			h.errorResponse(w, errorStatusCode, "mock response error", err)
+			return
 		}
 		respBody = r
 	}
 
+	w.Header().Add("content-type", "application/json")
 	w.WriteHeader(statusCode)
 	w.Write([]byte(respBody))
 }
 
+func (h Handler) errorResponse(w http.ResponseWriter, statusCode int, msg string, err error) {
+	body := struct {
+		Msg string `json:"msg"`
+		Err string `json:"error,omitempty"`
+	}{
+		Msg: msg,
+		Err: func() string {
+			if err != nil {
+				return err.Error()
+			}
+			return ""
+		}(),
+	}
+	w.Header().Add("content-type", "application/json")
+	w.WriteHeader(statusCode)
+	_ = json.NewEncoder(w).Encode(body)
+}
 func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 	if len(h.pairs) == 0 {
 		return nil, pair{}, fmt.Errorf("no request pair")
