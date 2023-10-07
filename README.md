@@ -11,7 +11,7 @@ For example, to validate that a field is an number with the range of -10 to 10 t
 ### Request
 Variables for request bodies will validate the body that is being received.
 
-| Name | Description | Arguements | Prefix/Suffix Supported | Example |
+| Name | Description | Arguments | Prefix/Suffix Supported | Example |
 |------|-------------|-------------|-----------------------|-----------|
 | `uuid` | Validates if the field is UUIDv4 format | none | Y | `{{ uuid }}` |
 | `intRange` | Validates that the field is an int between the range | min and max | N | `{{ intRange:-10|10 }}` |
@@ -21,6 +21,7 @@ Variables for request bodies will validate the body that is being received.
 ### Response
 Varables for the response will replace the body that will be responded.
 
-| Name | Description | Arguements | Prefix/Suffix Supported | Example |
+| Name | Description | Arguments | Prefix/Suffix Supported | Example |
+|------|-------------|-------------|-----------------------|-----------|
 | `uuid`| Will generate a UUIDv4 ID | none | Y | `{{ uuid }}` |
 | `path` | The request value of the field will be used | JSON path | Y | `{{ path:json.path }}`
