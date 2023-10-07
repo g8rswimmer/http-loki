@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "ddc344a6-8b1c-43f0-ae98-c4eaa6290f17",
+		"name": "Loki Mock Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4921589"
+	},
+	"item": [
+		{
+			"name": "Basic",
+			"item": [
+				{
+					"name": "Basic Get Example",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Basic Post Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock-example",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock-example"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Basic Post Bad Request Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock-example-400",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock-example-400"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

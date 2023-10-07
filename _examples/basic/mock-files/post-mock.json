@@ -1,0 +1,20 @@
+{
+    "method": "POST",
+    "endpoint": "/post-mock-example",
+    "request":{
+        "body":{
+            "first": "Jon",
+            "last": "Doe"
+        }
+    },
+    "response":{
+        "status_code": 201,
+        "body": {
+            "msg": "Post Mock Example",
+            "request": {
+                "first": "jon",
+                "last": "Doe"
+            }
+        }
+    }
+}
