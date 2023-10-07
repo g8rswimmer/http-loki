@@ -11,15 +11,15 @@ For example, to validate that a field is an number with the range of -10 to 10 t
 ### Request
 Variables for request bodies will validate the body that is being received.
 
-| Name | Description | Arguements | Example |
-| `uuid` | Validates if the field is UUIDv4 format | none | `{{ uuid }}` |
-| 'intRange` | Validates that the field is an int between the range | min and max | `{{ intRange:-10|10 }}` |
-| `ignore` | Will ignore that value when comparing | none | `{{ ignore }}` |
-| `regex` | Validates against a regex expersion | expersion | `{{ regex:p([a-z]+)ch }}` |
+| Name | Description | Arguements | Prefix/Suffix Supported | Example |
+| `uuid` | Validates if the field is UUIDv4 format | none | Y | `{{ uuid }}` |
+| 'intRange` | Validates that the field is an int between the range | min and max | N | `{{ intRange:-10|10 }}` |
+| `ignore` | Will ignore that value when comparing | none | Y | `{{ ignore }}` |
+| `regex` | Validates against a regex expersion | expersion | Y | `{{ regex:p([a-z]+)ch }}` |
 
 ### Response
 Varables for the response will replace the body that will be responded.
 
-| Name | Description | Arguements | Example |
-| `uuid`| Will generate a UUIDv4 ID | none | `{{ uuid }}` |
-| `path` | The request value of the field will be used | JSON path | `{{ path:json.path }}`
+| Name | Description | Arguements | Prefix/Suffix Supported | Example |
+| `uuid`| Will generate a UUIDv4 ID | none | Y | `{{ uuid }}` |
+| `path` | The request value of the field will be used | JSON path | Y | `{{ path:json.path }}`
