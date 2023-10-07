@@ -25,3 +25,15 @@ Varables for the response will replace the body that will be responded.
 |------|-------------|-------------|-----------------------|-----------|
 | `uuid`| Will generate a UUIDv4 ID | none | Y | `{{ uuid }}` |
 | `path` | The request value of the field will be used | JSON path | Y | `{{ path:json.path }}`
+
+## Examples
+Examples and a postman collection are included under the `_examples` directory.
+
+To run and example, simply use the make command
+```
+make [example-target]
+```
+
+| Make Target | Loki Server Port | File Directory | Collection Folder |
+|-------------|-------------------|--------------|---------------------|
+| `example-basic` | 8000 | `_examples/bacic/mock-files` | Basic |
