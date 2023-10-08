@@ -15,7 +15,7 @@ func (e endpoints) add(m *model.Mock) bool {
 	}
 	var reqVars []model.BodyVariable
 	if m.Request.Body != nil {
-		reqVars = variable.BodyPaths(m.Request.Body, "", []model.BodyVariable{})
+		reqVars = m.Request.Validations
 	}
 	var respVars []model.BodyVariable
 	if m.Response.Body != nil {

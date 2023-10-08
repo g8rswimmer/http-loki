@@ -1,7 +1,8 @@
 package model
 
 type Request struct {
-	Body any `json:"body"`
+	Body        any            `json:"body"`
+	Validations []BodyVariable `json:"body_validations"`
 }
 
 type Response struct {

@@ -12,11 +12,11 @@ const (
 )
 
 type BodyVariable struct {
-	Path   string
-	Func   string
-	Args   []string
-	Prefix string
-	Suffix string
+	Path   string   `json:"json_path"`
+	Func   string   `json:"func"`
+	Args   []string `json:"args"`
+	Prefix string   `json:"prefix"`
+	Suffix string   `json:"suffix"`
 }
 
 func BodyVariableFromString(path, field string) (BodyVariable, bool) {
@@ -41,7 +41,7 @@ func BodyVariableFromString(path, field string) (BodyVariable, bool) {
 	}
 
 	field = strings.TrimSpace(field)
-	vars := strings.Split(field, funcSplit)
+	vars := strings.SplitN(field, funcSplit, 2)
 	bv.Path = path
 	bv.Func = vars[bodyVariableFunc]
 	bv.Args = func() []string {

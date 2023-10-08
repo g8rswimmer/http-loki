@@ -1,0 +1,24 @@
+{
+    "method": "POST",
+    "endpoint": "/post-int-range-validation",
+    "request":{
+        "body":{
+            "num_apples": "{{ validation }}"
+        },
+        "body_validations":[
+            {
+                "json_path": "num_apples",
+                "func": "intRange",
+                "args":["0","100"]
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "transaction_id": 123455,
+            "msg": "Apples Added"
+        }
+ 
+    }
+}

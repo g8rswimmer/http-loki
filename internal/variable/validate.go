@@ -8,6 +8,8 @@ import (
 	"github.com/tidwall/sjson"
 )
 
+const validationValue = "{{ validation }}"
+
 type validation func(string, model.BodyVariable) error
 
 var validations = map[string]validation{
@@ -27,7 +29,7 @@ func Validate(req string, vars []model.BodyVariable) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("variable validation %w", err)
 		}
-		req, err = sjson.Set(req, v.Path, "ignore")
+		req, err = sjson.Set(req, v.Path, validationValue)
 		if err != nil {
 			return "", fmt.Errorf("variable request setting %w", err)
 		}
