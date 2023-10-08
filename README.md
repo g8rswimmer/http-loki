@@ -25,7 +25,7 @@ Varables for the response will replace the body that will be responded.
 |------|-------------|-------------|-----------------------|-----------|
 | `uuid`| Will generate a UUIDv4 ID | none | Y | `{{ uuid }}` |
 | `path` | The request value of the field will be used | JSON path | Y | `{{ path:json.path }}` |
-| 'currTime` | Will add the current time with a layout.  Supports RFC3339 or Go [formatted layout](https://pkg.go.dev/time).| layout | 
+| `currTime` | Will add the current time with a layout.  Supports RFC3339 or Go [formatted layout](https://pkg.go.dev/time).| layout `RFC3339 or 02 Jan 06` | Y | `{{ currTime:RFC3339 }}` |
 
 ## Examples
 Examples and a postman collection are included under the `_examples` directory.
