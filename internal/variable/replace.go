@@ -10,8 +10,9 @@ import (
 type replacement func(string, string, model.BodyVariable) (string, error)
 
 var replacements = map[string]replacement{
-	"uuid": replace.UUID,
-	"path": replace.Path,
+	"uuid":     replace.UUID,
+	"path":     replace.Path,
+	"currTime": replace.CurrentTime,
 }
 
 func Replace(req, resp string, vars []model.BodyVariable) (string, error) {
