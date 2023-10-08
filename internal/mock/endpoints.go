@@ -2,7 +2,6 @@ package mock
 
 import (
 	"github.com/g8rswimmer/http-loki/internal/model"
-	"github.com/g8rswimmer/http-loki/internal/variable"
 )
 
 type endpoints map[string]*Handler
@@ -19,7 +18,7 @@ func (e endpoints) add(m *model.Mock) bool {
 	}
 	var respVars []model.BodyVariable
 	if m.Response.Body != nil {
-		respVars = variable.BodyPaths(m.Response.Body, "", []model.BodyVariable{})
+		respVars = m.Response.Replacements
 	}
 	e[k].Add(m.Request, reqVars, m.Response, respVars)
 	return ok

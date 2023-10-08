@@ -185,6 +185,74 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Response Replacement",
+			"item": [
+				{
+					"name": "Response Replacement UUID Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-uuid-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-uuid-replacememt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Replacement Path Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"08b801eb-f564-42f5-a49a-1b8daa8735c0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-path-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-path-replacememt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Replacement Current Time Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-current-time-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-current-time-replacememt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

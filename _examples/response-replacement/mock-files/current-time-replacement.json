@@ -1,0 +1,23 @@
+{
+    "method": "GET",
+    "endpoint": "/get-current-time-replacememt",
+    "request":{},
+    "response":{
+        "status_code": 200,
+        "body": {
+            "id": "112233",
+            "first_name": "Jon",
+            "last_name": "Doe",
+            "language": "en",
+            "created_at": "{{ replacememt }}"
+        },
+        "body_replacements":[
+            {
+                "json_path": "created_at",
+                "func": "currTime",
+                "args": ["RFC3339"]
+            }
+        ]
+ 
+    }
+}

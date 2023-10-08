@@ -1,0 +1,22 @@
+{
+    "method": "GET",
+    "endpoint": "/get-uuid-replacememt",
+    "request":{},
+    "response":{
+        "status_code": 200,
+        "body": {
+            "id": "{{ replacememt }}",
+            "first_name": "Jon",
+            "last_name": "Doe",
+            "language": "en"
+        },
+        "body_replacements":[
+            {
+                "json_path": "id",
+                "func": "uuid",
+                "prefix": "test|"
+            }
+        ]
+ 
+    }
+}

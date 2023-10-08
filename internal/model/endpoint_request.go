@@ -6,8 +6,9 @@ type Request struct {
 }
 
 type Response struct {
-	StatusCode int `json:"status_code"`
-	Body       any `json:"body"`
+	StatusCode   int            `json:"status_code"`
+	Body         any            `json:"body"`
+	Replacements []BodyVariable `json:"body_replacements"`
 }
 
 type Mock struct {
