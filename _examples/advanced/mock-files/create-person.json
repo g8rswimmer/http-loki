@@ -1,0 +1,56 @@
+{
+    "method": "POST",
+    "endpoint": "/create-person",
+    "request":{
+        "body":{
+            "person_id": "{{ validation }}",
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny",
+            "address":{
+                "street1": "123 Main St",
+                "city": "Springfield",
+                "state": "OH",
+                "zip": "12345"
+            },
+            "phone": "+19995551212"
+        },
+        "body_validations":[
+            {
+                "json_path": "person_id",
+                "func": "uuid"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 201,
+        "body": {
+            "id": "{{ replacememt }}",
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny",
+            "address":{
+                "street1": "123 Main St",
+                "city": "Springfield",
+                "state": "OH",
+                "zip": "12345"
+            },
+            "phone": "+19995551212",
+            "created_at": "{{ replacememt }}"
+        },
+        "body_replacements":[
+            {
+                "json_path": "id",
+                "func": "path",
+                "prefix": "test|",
+                "args": ["person_id"]
+            },
+            {
+                "json_path": "created_at",
+                "func": "currTime",
+                "args": ["RFC3339"]
+            }
+        ]
+ 
+    }
+}

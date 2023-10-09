@@ -1,0 +1,58 @@
+{
+    "method": "POST",
+    "endpoint": "/create-person",
+    "request":{
+        "body":{
+            "person_id": "{{ validation }}",
+            "first_name": "Edward",
+            "last_name": "Cheeseburger",
+            "preferred_name": "Eddie",
+            "address":{
+                "street1": "123 Main St",
+                "city": "Springfield",
+                "state": "IL",
+                "zip": "99887"
+            },
+            "phone": "+18775551212",
+            "email": "not.my.email@gmail.com"
+        },
+        "body_validations":[
+            {
+                "json_path": "person_id",
+                "func": "uuid"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 201,
+        "body": {
+            "id": "{{ replacememt }}",
+            "first_name": "Edward",
+            "last_name": "Cheeseburger",
+            "preferred_name": "Eddie",
+            "address":{
+                "street1": "123 Main St",
+                "city": "Springfield",
+                "state": "IL",
+                "zip": "99887"
+            },
+            "phone": "+18775551212",
+            "email": "not.my.email@gmail.com",
+            "created_at": "{{ replacememt }}"
+        },
+        "body_replacements":[
+            {
+                "json_path": "id",
+                "func": "path",
+                "prefix": "test|",
+                "args": ["person_id"]
+            },
+            {
+                "json_path": "created_at",
+                "func": "currTime",
+                "args": ["RFC3339"]
+            }
+        ]
+ 
+    }
+}
