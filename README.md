@@ -92,4 +92,6 @@ make [example-target]
 
 | Make Target | Loki Server Port | File Directory | Collection Folder |
 |-------------|-------------------|--------------|---------------------|
-| `example-basic` | 8000 | `_examples/bacic/mock-files` | Basic |
+| `example-basic` | 8000 | `_examples/basic/mock-files` | Basic |
+| `example-req-validation` | 8000 | `_examples/request-validation/mock-files` | Request Valiation |
+| `example-resp-replacement` | 8000 | `_examples/response-replacement/mock-files` | Response Replacement |
