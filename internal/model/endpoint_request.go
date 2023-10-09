@@ -1,5 +1,13 @@
 package model
 
+type BodyVariable struct {
+	Path   string   `json:"json_path"`
+	Func   string   `json:"func"`
+	Args   []string `json:"args"`
+	Prefix string   `json:"prefix"`
+	Suffix string   `json:"suffix"`
+}
+
 type Request struct {
 	Body        any            `json:"body"`
 	Validations []BodyVariable `json:"body_validations"`
