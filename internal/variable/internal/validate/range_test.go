@@ -32,6 +32,20 @@ func TestIntRange(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "success array",
+			args: args{
+				req: map[string]any{
+					"id":      "hi",
+					"numbers": []int{6, -2},
+				},
+				bv: model.BodyVariable{
+					Path: "numbers",
+					Args: []string{"-10", "10"},
+				},
+			},
+			wantErr: false,
+		},
+		{
 			name: "range fail",
 			args: args{
 				req: map[string]any{

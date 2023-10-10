@@ -30,6 +30,18 @@ func TestUUID(t *testing.T) {
 			wantErr: false,
 		},
 		{
+			name: "success arrary",
+			args: args{
+				req: map[string]any{
+					"id": []string{"b2b7fa03-7972-4910-a13e-60b9d63c8dcf", "a8e21b84-2160-46db-91dd-54af2b261643"},
+				},
+				bv: model.BodyVariable{
+					Path: "id",
+				},
+			},
+			wantErr: false,
+		},
+		{
 			name: "success prefix",
 			args: args{
 				req: map[string]any{
