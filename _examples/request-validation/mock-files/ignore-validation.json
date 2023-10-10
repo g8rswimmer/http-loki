@@ -1,0 +1,27 @@
+{
+    "method": "POST",
+    "endpoint": "/post-ignore-validation",
+    "request":{
+        "body":{
+            "id": 123455,
+            "created_at": "{{ validation }}",
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny"
+        },
+        "body_validations":[
+            {
+                "json_path": "created_at",
+                "func": "ignore"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "id": 123455,
+            "msg": "Individual was processed"
+        }
+ 
+    }
+}

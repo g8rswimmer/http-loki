@@ -1,0 +1,17 @@
+{
+    "method": "POST",
+    "endpoint": "/post-mock-example-400",
+    "request":{
+        "body":{
+            "first": "Jon",
+            "last": "Doe"
+        }
+    },
+    "response":{
+        "status_code": 400,
+        "body": {
+            "msg": "Bad Request",
+            "error": "message had was not valid"
+        }
+    }
+}

@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "ddc344a6-8b1c-43f0-ae98-c4eaa6290f17",
+		"name": "Loki Mock Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4921589"
+	},
+	"item": [
+		{
+			"name": "Basic",
+			"item": [
+				{
+					"name": "Basic Get Example",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Basic Post Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock-example",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock-example"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Basic Post Bad Request Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock-example-400",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock-example-400"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request Validation",
+			"item": [
+				{
+					"name": "Request Validation Ignore Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"id\": 123455,\n            \"created_at\": \"07-10-2023\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Funster\",\n            \"preferred_name\": \"Jonny\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-ignore-validation",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-ignore-validation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Validation RegEx Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"id\": 123455,\n            \"created_at\": \"2016-01-19T15:21:32.59+02:00\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Funster\",\n            \"preferred_name\": \"Jonny\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-regex-validation",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-regex-validation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Validation Int Range Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"num_apples\": 56\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-int-range-validation",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-int-range-validation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Validation UUID Example",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"id\": \"test|6f978702-c62a-431c-922e-2efd98bf7649\",\n            \"first_name\": \"John\",\n            \"last_name\": \"Funster\",\n            \"preferred_name\": \"Jonny\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/patch-uuid-validation",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"patch-uuid-validation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Response Replacement",
+			"item": [
+				{
+					"name": "Response Replacement UUID Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-uuid-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-uuid-replacememt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Replacement Path Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"08b801eb-f564-42f5-a49a-1b8daa8735c0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-path-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-path-replacememt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Replacement Current Time Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-current-time-replacememt",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-current-time-replacememt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Advanced",
+			"item": [
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"534eaf1c-1752-47a8-b5b4-d8f04b4547c3\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Funster\",\n    \"preferred_name\": \"Jonny\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"OH\",\n        \"zip\": \"12345\"\n    },\n    \"phone\": \"+19995551212\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/create-person",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"create-person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person Too",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"534eaf1c-1752-47a8-b5b4-d8f04b4547c3\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Funster\",\n    \"preferred_name\": \"Jonny\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"OH\",\n        \"zip\": \"12345\"\n    },\n    \"phone\": \"+19995551212\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/create-person",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"create-person"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

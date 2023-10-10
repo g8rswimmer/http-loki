@@ -1,0 +1,26 @@
+{
+    "method": "PATCH",
+    "endpoint": "/patch-uuid-validation",
+    "request":{
+        "body":{
+            "id": "{{ validation }}",
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny"
+        },
+        "body_validations":[
+            {
+                "json_path": "id",
+                "func": "uuid",
+                "prefix": "test|"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "msg": "Individual was patched"
+        }
+ 
+    }
+}
