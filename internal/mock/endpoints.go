@@ -12,15 +12,7 @@ func (e endpoints) add(m *model.Mock) bool {
 	if !ok {
 		e[k] = &Handler{}
 	}
-	var reqVars []model.BodyVariable
-	if m.Request.Body != nil {
-		reqVars = m.Request.Validations
-	}
-	var respVars []model.BodyVariable
-	if m.Response.Body != nil {
-		respVars = m.Response.Replacements
-	}
-	e[k].Add(m.Request, reqVars, m.Response, respVars)
+	e[k].Add(m.Request, m.Response)
 	return ok
 }
 

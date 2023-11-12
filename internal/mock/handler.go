@@ -17,22 +17,18 @@ const (
 )
 
 type pair struct {
-	request      model.Request
-	response     model.Response
-	requestVars  []model.BodyVariable
-	responseVars []model.BodyVariable
+	request  model.Request
+	response model.Response
 }
 
 type Handler struct {
 	pairs []pair
 }
 
-func (h *Handler) Add(req model.Request, reqVars []model.BodyVariable, resp model.Response, respVars []model.BodyVariable) {
+func (h *Handler) Add(req model.Request, resp model.Response) {
 	p := pair{
-		request:      req,
-		response:     resp,
-		requestVars:  reqVars,
-		responseVars: respVars,
+		request:  req,
+		response: resp,
 	}
 	h.pairs = append(h.pairs, p)
 }
@@ -48,7 +44,7 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	statusCode := p.response.StatusCode
 	respBody := "{}"
 	if p.response.Body != nil {
-		r, err := h.replaceResponse(rb, p.response.Body, p)
+		r, err := h.replaceResponse(rb, p.response)
 		if err != nil {
 			h.errorResponse(w, errorStatusCode, "mock response error", err)
 			return
@@ -102,7 +98,7 @@ func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 		switch {
 		case p.request.Body == nil && requestBody == nil:
 			return requestBody, p, nil
-		case h.validateRequest(requestBody, p.request.Body, p):
+		case h.validateRequest(requestBody, p.request):
 			return requestBody, p, nil
 		default:
 		}
@@ -111,13 +107,13 @@ func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 	return nil, pair{}, fmt.Errorf("no request pair")
 }
 
-func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
+func (h *Handler) validateRequest(reqBody any, mockRequest model.Request) bool {
 	enc, err := json.Marshal(reqBody)
 	if err != nil {
 		fmt.Println(err)
 		return false
 	}
-	rStr, err := variable.Validate(string(enc), p.requestVars)
+	rStr, err := variable.Validate(string(enc), mockRequest.Validations)
 	if err != nil {
 		fmt.Println(err)
 		return false
@@ -128,11 +124,11 @@ func (h *Handler) validateRequest(reqBody, mockBody any, p pair) bool {
 	}
 	fmt.Println("comparing")
 	fmt.Println(rStr)
-	return reflect.DeepEqual(reqBody, mockBody)
+	return reflect.DeepEqual(reqBody, mockRequest.Body)
 }
 
-func (h *Handler) replaceResponse(requestBody, responseBody any, p pair) (string, error) {
-	resp, err := json.Marshal(responseBody)
+func (h *Handler) replaceResponse(requestBody any, mockResponse model.Response) (string, error) {
+	resp, err := json.Marshal(mockResponse.Body)
 	if err != nil {
 		fmt.Println(err)
 		return "", fmt.Errorf("response body marshal %w", err)
@@ -142,7 +138,7 @@ func (h *Handler) replaceResponse(requestBody, responseBody any, p pair) (string
 		fmt.Println(err)
 		return "", fmt.Errorf("request body marshal %w", err)
 	}
-	rStr, err := variable.Replace(string(req), string(resp), p.responseVars)
+	rStr, err := variable.Replace(string(req), string(resp), mockResponse.Replacements)
 	if err != nil {
 		fmt.Println(err)
 		return "", fmt.Errorf("response body replace %w", err)

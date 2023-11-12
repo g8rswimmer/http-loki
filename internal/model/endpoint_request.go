@@ -8,9 +8,23 @@ type BodyVariable struct {
 	Suffix string   `json:"suffix"`
 }
 
+type QueryVariable struct {
+	Func   string   `json:"func"`
+	Args   []string `json:"args"`
+	Prefix string   `json:"prefix"`
+	Suffix string   `json:"suffix"`
+}
+
+type QueryParameter struct {
+	Key        string        `json:"key"`
+	Value      string        `json:"value"`
+	Validation QueryVariable `json:"validation"`
+}
+
 type Request struct {
-	Body        any            `json:"body"`
-	Validations []BodyVariable `json:"body_validations"`
+	Body            any              `json:"body"`
+	QueryParameters []QueryParameter `json:"query_parameters"`
+	Validations     []BodyVariable   `json:"body_validations"`
 }
 
 type Response struct {
