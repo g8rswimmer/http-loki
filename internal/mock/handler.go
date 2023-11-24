@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher"
 	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable"
 )
@@ -34,7 +35,13 @@ func (h *Handler) Add(req model.Request, resp model.Response) {
 }
 
 func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
-	rb, p, err := h.requestPair(r)
+	reqMatcher, err := matcher.NewRequest(r)
+	if err != nil {
+		fmt.Println(err)
+		h.errorResponse(w, errorStatusCode, "mock request error", err)
+		return
+	}
+	rb, p, err := h.findPair(reqMatcher)
 	if err != nil {
 		fmt.Println(err)
 		h.errorResponse(w, errorStatusCode, "mock request error", err)
@@ -74,7 +81,8 @@ func (h Handler) errorResponse(w http.ResponseWriter, statusCode int, msg string
 	w.WriteHeader(statusCode)
 	_ = json.NewEncoder(w).Encode(body)
 }
-func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
+
+func (h *Handler) findPair(reqMatcher *matcher.Request) (any, pair, error) {
 	if len(h.pairs) == 0 {
 		return nil, pair{}, fmt.Errorf("no request pair")
 	}
@@ -95,36 +103,12 @@ func (h *Handler) requestPair(r *http.Request) (any, pair, error) {
 	default:
 	}
 	for _, p := range h.pairs {
-		switch {
-		case p.request.Body == nil && requestBody == nil:
-			return requestBody, p, nil
-		case h.validateRequest(requestBody, p.request):
-			return requestBody, p, nil
-		default:
+		if body, err := reqMatcher.Match(p.request); err == nil {
+			return body, p, nil
 		}
-
 	}
 	return nil, pair{}, fmt.Errorf("no request pair")
-}
 
-func (h *Handler) validateRequest(reqBody any, mockRequest model.Request) bool {
-	enc, err := json.Marshal(reqBody)
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-	rStr, err := variable.Validate(string(enc), mockRequest.Validations)
-	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-	if err := json.Unmarshal([]byte(rStr), &reqBody); err != nil {
-		fmt.Println(err)
-		return false
-	}
-	fmt.Println("comparing")
-	fmt.Println(rStr)
-	return reflect.DeepEqual(reqBody, mockRequest.Body)
 }
 
 func (h *Handler) replaceResponse(requestBody any, mockResponse model.Response) (string, error) {

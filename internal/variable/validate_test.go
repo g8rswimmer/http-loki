@@ -36,7 +36,7 @@ func TestValidate(t *testing.T) {
 			},
 			want: map[string]any{
 				"id":     "hi",
-				"number": "ignore",
+				"number": validationValue,
 			},
 			wantErr: false,
 		},
