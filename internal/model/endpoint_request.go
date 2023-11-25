@@ -1,5 +1,11 @@
 package model
 
+type VariableParams struct {
+	Args   []string `json:"args"`
+	Prefix string   `json:"prefix"`
+	Suffix string   `json:"suffix"`
+}
+
 type BodyVariable struct {
 	Path   string   `json:"json_path"`
 	Func   string   `json:"func"`
