@@ -1,0 +1,20 @@
+{
+    "method": "GET",
+    "endpoint": "/get-mock-example-with-query",
+    "request": {
+        "query_parameters": [
+            {
+                "key": "number",
+                "value": "42"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "msg": "Get Mock With Query Example",
+            "number": 42,
+            "boolean": true
+        }
+    }
+}

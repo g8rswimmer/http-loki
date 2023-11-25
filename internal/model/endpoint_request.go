@@ -18,15 +18,26 @@ type QueryVariable struct {
 }
 
 type QueryParameter struct {
-	Key        string        `json:"key"`
-	Value      string        `json:"value"`
-	Validation QueryVariable `json:"validation"`
+	Key        string         `json:"key"`
+	Value      string         `json:"value"`
+	Validation *QueryVariable `json:"validation"`
 }
 
 type Request struct {
 	Body            any              `json:"body"`
 	QueryParameters []QueryParameter `json:"query_parameters"`
 	Validations     []BodyVariable   `json:"body_validations"`
+}
+
+func (r Request) QueryVariables() []QueryVariable {
+	vars := make([]QueryVariable, 0, len(r.QueryParameters))
+	for _, q := range r.QueryParameters {
+		if q.Validation == nil {
+			continue
+		}
+		vars = append(vars, *q.Validation)
+	}
+	return vars
 }
 
 type Response struct {
