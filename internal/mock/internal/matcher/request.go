@@ -9,8 +9,8 @@ import (
 	"net/url"
 	"reflect"
 
+	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher/internal/body"
 	"github.com/g8rswimmer/http-loki/internal/model"
-	"github.com/g8rswimmer/http-loki/internal/variable"
 )
 
 type Request struct {
@@ -57,7 +57,7 @@ func (r *Request) matchBody(req model.Request) error {
 	if r.body == nil && req.Body == nil {
 		return nil
 	}
-	rStr, err := variable.Validate(r.encodedBody, req.Validations)
+	rStr, err := body.Validate(r.encodedBody, req.Validations)
 	if err != nil {
 		return fmt.Errorf("request body matching validation: %w", err)
 	}
