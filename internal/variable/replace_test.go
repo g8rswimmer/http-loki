@@ -35,8 +35,10 @@ func TestReplace(t *testing.T) {
 				vars: []model.BodyVariable{
 					{
 						Path: "replace",
-						Args: []string{"new_path"},
 						Func: "path",
+						VariableParams: model.VariableParams{
+							Args: []string{"new_path"},
+						},
 					},
 				},
 			},

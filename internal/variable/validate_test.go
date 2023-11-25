@@ -29,8 +29,10 @@ func TestValidate(t *testing.T) {
 				vars: []model.BodyVariable{
 					{
 						Path: "number",
-						Args: []string{"-10", "10"},
 						Func: "intRange",
+						VariableParams: model.VariableParams{
+							Args: []string{"-10", "10"},
+						},
 					},
 				},
 			},

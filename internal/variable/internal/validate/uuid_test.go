@@ -48,8 +48,10 @@ func TestUUID(t *testing.T) {
 					"id": "prefix|b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
 				},
 				bv: model.BodyVariable{
-					Path:   "id",
-					Prefix: "prefix|",
+					Path: "id",
+					VariableParams: model.VariableParams{
+						Prefix: "prefix|",
+					},
 				},
 			},
 			wantErr: false,
@@ -61,8 +63,10 @@ func TestUUID(t *testing.T) {
 					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf::suffix",
 				},
 				bv: model.BodyVariable{
-					Path:   "id",
-					Suffix: "::suffix",
+					Path: "id",
+					VariableParams: model.VariableParams{
+						Suffix: "::suffix",
+					},
 				},
 			},
 			wantErr: false,

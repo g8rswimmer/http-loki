@@ -34,7 +34,9 @@ func TestPath(t *testing.T) {
 				},
 				bv: model.BodyVariable{
 					Path: "replace",
-					Args: []string{"new_path"},
+					VariableParams: model.VariableParams{
+						Args: []string{"new_path"},
+					},
 				},
 			},
 			want: map[string]any{
@@ -57,7 +59,9 @@ func TestPath(t *testing.T) {
 				},
 				bv: model.BodyVariable{
 					Path: "replace",
-					Args: []string{"new_path"},
+					VariableParams: model.VariableParams{
+						Args: []string{"new_path"},
+					},
 				},
 			},
 			want: map[string]any{
@@ -79,9 +83,11 @@ func TestPath(t *testing.T) {
 					"hello":   42.0,
 				},
 				bv: model.BodyVariable{
-					Path:   "replace",
-					Args:   []string{"new_path"},
-					Prefix: "Hi, ",
+					Path: "replace",
+					VariableParams: model.VariableParams{
+						Args:   []string{"new_path"},
+						Prefix: "Hi, ",
+					},
 				},
 			},
 			want: map[string]any{
@@ -103,9 +109,11 @@ func TestPath(t *testing.T) {
 					"hello":   42.0,
 				},
 				bv: model.BodyVariable{
-					Path:   "replace",
-					Args:   []string{"new_path"},
-					Suffix: ", Bye",
+					Path: "replace",
+					VariableParams: model.VariableParams{
+						Args:   []string{"new_path"},
+						Suffix: ", Bye",
+					},
 				},
 			},
 			want: map[string]any{
@@ -128,7 +136,9 @@ func TestPath(t *testing.T) {
 				},
 				bv: model.BodyVariable{
 					Path: "replace",
-					Args: []string{},
+					VariableParams: model.VariableParams{
+						Args: []string{},
+					},
 				},
 			},
 			want:    nil,

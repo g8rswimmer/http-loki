@@ -1,4 +1,4 @@
-package validate
+package body
 
 import (
 	"encoding/json"

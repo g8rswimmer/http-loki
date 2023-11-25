@@ -7,18 +7,14 @@ type VariableParams struct {
 }
 
 type BodyVariable struct {
-	Path   string   `json:"json_path"`
-	Func   string   `json:"func"`
-	Args   []string `json:"args"`
-	Prefix string   `json:"prefix"`
-	Suffix string   `json:"suffix"`
+	VariableParams
+	Path string `json:"json_path"`
+	Func string `json:"func"`
 }
 
 type QueryVariable struct {
-	Func   string   `json:"func"`
-	Args   []string `json:"args"`
-	Prefix string   `json:"prefix"`
-	Suffix string   `json:"suffix"`
+	VariableParams
+	Func string `json:"func"`
 }
 
 type QueryParameter struct {

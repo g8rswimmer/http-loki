@@ -29,7 +29,9 @@ func TestCurrentTime(t *testing.T) {
 				},
 				bv: model.BodyVariable{
 					Path: "created_at",
-					Args: []string{"RFC3339"},
+					VariableParams: model.VariableParams{
+						Args: []string{"RFC3339"},
+					},
 				},
 			},
 			wantKey:    "created_at",
@@ -45,7 +47,9 @@ func TestCurrentTime(t *testing.T) {
 				},
 				bv: model.BodyVariable{
 					Path: "created_at",
-					Args: []string{"02 Jan 06"},
+					VariableParams: model.VariableParams{
+						Args: []string{"02 Jan 06"},
+					},
 				},
 			},
 			wantKey:    "created_at",

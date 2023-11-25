@@ -1,4 +1,4 @@
-package validate
+package body
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
-func TestRegEx(t *testing.T) {
+func TestUUID(t *testing.T) {
 	type args struct {
 		req any
 		bv  model.BodyVariable
@@ -21,13 +21,22 @@ func TestRegEx(t *testing.T) {
 			name: "success",
 			args: args{
 				req: map[string]any{
-					"reg_it": "peach",
+					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
 				},
 				bv: model.BodyVariable{
-					Path: "reg_it",
-					VariableParams: model.VariableParams{
-						Args: []string{"p([a-z]+)ch"},
-					},
+					Path: "id",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "success arrary",
+			args: args{
+				req: map[string]any{
+					"id": []string{"b2b7fa03-7972-4910-a13e-60b9d63c8dcf", "a8e21b84-2160-46db-91dd-54af2b261643"},
+				},
+				bv: model.BodyVariable{
+					Path: "id",
 				},
 			},
 			wantErr: false,
@@ -36,13 +45,12 @@ func TestRegEx(t *testing.T) {
 			name: "success prefix",
 			args: args{
 				req: map[string]any{
-					"reg_it": "nope peach",
+					"id": "prefix|b2b7fa03-7972-4910-a13e-60b9d63c8dcf",
 				},
 				bv: model.BodyVariable{
-					Path: "reg_it",
+					Path: "id",
 					VariableParams: model.VariableParams{
-						Args:   []string{"p([a-z]+)ch"},
-						Prefix: "nope ",
+						Prefix: "prefix|",
 					},
 				},
 			},
@@ -52,44 +60,37 @@ func TestRegEx(t *testing.T) {
 			name: "success suffix",
 			args: args{
 				req: map[string]any{
-					"reg_it": "peach after",
+					"id": "b2b7fa03-7972-4910-a13e-60b9d63c8dcf::suffix",
 				},
 				bv: model.BodyVariable{
-					Path: "reg_it",
+					Path: "id",
 					VariableParams: model.VariableParams{
-						Args:   []string{"p([a-z]+)ch"},
-						Suffix: " after",
+						Suffix: "::suffix",
 					},
 				},
 			},
 			wantErr: false,
 		},
 		{
-			name: "fail",
+			name: "invalid",
 			args: args{
 				req: map[string]any{
-					"reg_it": "nope",
+					"id": "uuid",
 				},
 				bv: model.BodyVariable{
-					Path: "reg_it",
-					VariableParams: model.VariableParams{
-						Args: []string{"p([a-z]+)ch"},
-					},
+					Path: "id",
 				},
 			},
 			wantErr: true,
 		},
 		{
-			name: "no args",
+			name: "not a string",
 			args: args{
 				req: map[string]any{
-					"reg_it": "peach",
+					"id": 77,
 				},
 				bv: model.BodyVariable{
-					Path: "reg_it",
-					VariableParams: model.VariableParams{
-						Args: []string{},
-					},
+					Path: "id",
 				},
 			},
 			wantErr: true,
@@ -102,8 +103,8 @@ func TestRegEx(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := RegEx(string(req), tt.args.bv); (err != nil) != tt.wantErr {
-				t.Errorf("RegEx() error = %v, wantErr %v", err, tt.wantErr)
+			if err := UUID(string(req), tt.args.bv); (err != nil) != tt.wantErr {
+				t.Errorf("UUID() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

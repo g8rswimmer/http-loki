@@ -40,8 +40,10 @@ func TestUUID(t *testing.T) {
 					"id": 42,
 				},
 				bv: model.BodyVariable{
-					Path:   "id",
-					Prefix: "my prefix",
+					Path: "id",
+					VariableParams: model.VariableParams{
+						Prefix: "my prefix",
+					},
 				},
 			},
 			want:    "id",
@@ -54,8 +56,10 @@ func TestUUID(t *testing.T) {
 					"id": 42,
 				},
 				bv: model.BodyVariable{
-					Path:   "id",
-					Suffix: "my suffix",
+					Path: "id",
+					VariableParams: model.VariableParams{
+						Suffix: "my suffix",
+					},
 				},
 			},
 			want:    "id",
