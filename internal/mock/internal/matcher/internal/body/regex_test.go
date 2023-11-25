@@ -102,7 +102,7 @@ func TestRegEx(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := RegEx(string(req), tt.args.bv); (err != nil) != tt.wantErr {
+			if err := regex(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("RegEx() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

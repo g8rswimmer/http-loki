@@ -103,7 +103,7 @@ func TestUUID(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := UUID(string(req), tt.args.bv); (err != nil) != tt.wantErr {
+			if err := uuid(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("UUID() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

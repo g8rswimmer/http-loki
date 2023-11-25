@@ -56,7 +56,7 @@ func TestIgnore(t *testing.T) {
 				return
 			}
 
-			if err := Ignore(string(req), tt.args.bv); (err != nil) != tt.wantErr {
+			if err := ignore(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("Ignore() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

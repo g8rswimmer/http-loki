@@ -8,7 +8,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func UUID(req string, bv model.BodyVariable) error {
+func uuid(req string, bv model.BodyVariable) error {
 	result := gjson.Get(req, bv.Path)
 	switch {
 	case result.Type == gjson.String:

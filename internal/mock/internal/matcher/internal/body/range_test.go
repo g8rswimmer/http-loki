@@ -137,7 +137,7 @@ func TestIntRange(t *testing.T) {
 				t.Errorf("request encoding error %v", err)
 				return
 			}
-			if err := IntRange(string(req), tt.args.bv); (err != nil) != tt.wantErr {
+			if err := intRange(string(req), tt.args.bv); (err != nil) != tt.wantErr {
 				t.Errorf("IntRange() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})

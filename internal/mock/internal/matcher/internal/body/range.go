@@ -8,7 +8,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func IntRange(req string, bv model.BodyVariable) error {
+func intRange(req string, bv model.BodyVariable) error {
 	result := gjson.Get(req, bv.Path)
 	switch {
 	case result.Type == gjson.Number:

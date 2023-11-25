@@ -6,7 +6,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func Ignore(req string, bv model.BodyVariable) error {
+func ignore(req string, bv model.BodyVariable) error {
 	result := gjson.Get(req, bv.Path)
 	if result.Type != gjson.String {
 		return nil
