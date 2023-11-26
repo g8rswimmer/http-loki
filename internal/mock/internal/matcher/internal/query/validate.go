@@ -15,6 +15,7 @@ var validations = map[string]validation{
 	"uuid":     uuid,
 	"ignore":   ignore,
 	"intRange": intRange,
+	"regex":    regex,
 }
 
 func Validate(values url.Values, params []model.QueryParameter) (url.Values, error) {
