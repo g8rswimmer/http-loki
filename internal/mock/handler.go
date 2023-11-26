@@ -11,7 +11,7 @@ import (
 	"github.com/g8rswimmer/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/matcher"
 	"github.com/g8rswimmer/http-loki/internal/model"
-	"github.com/g8rswimmer/http-loki/internal/variable"
+	"github.com/g8rswimmer/http-loki/internal/replacer"
 )
 
 const (
@@ -49,20 +49,15 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	statusCode := reqPair.response.StatusCode
-	respBody := "{}"
-	if reqPair.response.Body != nil {
-		r, err := h.replaceResponse(request.Body, reqPair.response)
-		if err != nil {
-			h.errorResponse(w, errorStatusCode, "mock response error", err)
-			return
-		}
-		respBody = r
+	respBody, err := replacer.MockResponseReplace(request, reqPair.response)
+	if err != nil {
+		h.errorResponse(w, errorStatusCode, "mock response error", err)
+		return
 	}
 
 	w.Header().Add("content-type", "application/json")
-	w.WriteHeader(statusCode)
-	w.Write([]byte(respBody))
+	w.WriteHeader(reqPair.response.StatusCode)
+	w.Write(respBody)
 }
 
 func (h Handler) errorResponse(w http.ResponseWriter, statusCode int, msg string, err error) {
