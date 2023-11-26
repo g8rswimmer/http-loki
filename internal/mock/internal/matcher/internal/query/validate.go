@@ -12,7 +12,8 @@ const validationValue = "{{ validation }}"
 type validation func(string, model.QueryVariable) error
 
 var validations = map[string]validation{
-	"uuid": uuid,
+	"uuid":   uuid,
+	"ignore": ignore,
 }
 
 func Validate(values url.Values, params []model.QueryParameter) (url.Values, error) {
