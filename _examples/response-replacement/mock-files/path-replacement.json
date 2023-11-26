@@ -19,7 +19,7 @@
                 "json_path": "id",
                 "func": "path",
                 "prefix": "test|",
-                "args": ["id"]
+                "args": ["body","id"]
             }
         ]
  
