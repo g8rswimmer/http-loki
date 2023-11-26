@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"reflect"
 
+	"github.com/g8rswimmer/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher"
 	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/g8rswimmer/http-loki/internal/variable"
@@ -35,23 +36,23 @@ func (h *Handler) Add(req model.Request, resp model.Response) {
 }
 
 func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
-	reqMatcher, err := matcher.NewRequest(r)
+	request, err := httpx.NewRequest(r)
 	if err != nil {
 		fmt.Println(err)
 		h.errorResponse(w, errorStatusCode, "mock request error", err)
 		return
 	}
-	rb, p, err := h.findPair(reqMatcher)
+	reqPair, err := h.findPair(request)
 	if err != nil {
 		fmt.Println(err)
 		h.errorResponse(w, errorStatusCode, "mock request error", err)
 		return
 	}
 
-	statusCode := p.response.StatusCode
+	statusCode := reqPair.response.StatusCode
 	respBody := "{}"
-	if p.response.Body != nil {
-		r, err := h.replaceResponse(rb, p.response)
+	if reqPair.response.Body != nil {
+		r, err := h.replaceResponse(request.Body, reqPair.response)
 		if err != nil {
 			h.errorResponse(w, errorStatusCode, "mock response error", err)
 			return
@@ -82,9 +83,9 @@ func (h Handler) errorResponse(w http.ResponseWriter, statusCode int, msg string
 	_ = json.NewEncoder(w).Encode(body)
 }
 
-func (h *Handler) findPair(reqMatcher *matcher.Request) (any, pair, error) {
+func (h *Handler) findPair(request *httpx.Request) (pair, error) {
 	if len(h.pairs) == 0 {
-		return nil, pair{}, fmt.Errorf("no request pair")
+		return pair{}, fmt.Errorf("no request pair")
 	}
 	var requestBody any
 	err := json.NewDecoder(r.Body).Decode(&requestBody)
@@ -103,11 +104,11 @@ func (h *Handler) findPair(reqMatcher *matcher.Request) (any, pair, error) {
 	default:
 	}
 	for _, p := range h.pairs {
-		if body, err := reqMatcher.Match(p.request); err == nil {
-			return body, p, nil
+		if err := matcher.MockRequestMatch(request, p.request); err == nil {
+			return p, nil
 		}
 	}
-	return nil, pair{}, fmt.Errorf("no request pair")
+	return pair{}, fmt.Errorf("no request pair")
 
 }
 
