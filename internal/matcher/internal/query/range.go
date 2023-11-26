@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher/internal/validate"
+	"github.com/g8rswimmer/http-loki/internal/matcher/internal/validate"
 	"github.com/g8rswimmer/http-loki/internal/model"
 )
 

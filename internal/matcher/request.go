@@ -7,8 +7,8 @@ import (
 	"reflect"
 
 	"github.com/g8rswimmer/http-loki/internal/httpx"
-	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher/internal/body"
-	"github.com/g8rswimmer/http-loki/internal/mock/internal/matcher/internal/query"
+	"github.com/g8rswimmer/http-loki/internal/matcher/internal/body"
+	"github.com/g8rswimmer/http-loki/internal/matcher/internal/query"
 	"github.com/g8rswimmer/http-loki/internal/model"
 )
 
