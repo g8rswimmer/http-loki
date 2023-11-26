@@ -73,7 +73,7 @@ func TestUUID(t *testing.T) {
 				t.Errorf("response encoding error %v", err)
 				return
 			}
-			newResp, err := UUID("", string(resp), tt.args.bv)
+			newResp, err := UUID(nil, string(resp), tt.args.bv)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("UUID() error = %v, wantErr %v", err, tt.wantErr)
 				return

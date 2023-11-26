@@ -64,7 +64,7 @@ func TestCurrentTime(t *testing.T) {
 				t.Errorf("response encoding error %v", err)
 				return
 			}
-			newResp, err := CurrentTime("", string(resp), tt.args.bv)
+			newResp, err := CurrentTime(nil, string(resp), tt.args.bv)
 			switch {
 			case (err != nil) != tt.wantErr:
 				t.Errorf("CurrentTime() error = %v, wantErr %v", err, tt.wantErr)

@@ -6,7 +6,6 @@ import (
 
 	"github.com/g8rswimmer/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/model"
-	"github.com/g8rswimmer/http-loki/internal/variable"
 )
 
 var emptyBody = []byte("{}")
@@ -20,7 +19,7 @@ func MockResponseReplace(req *httpx.Request, mockResponse model.Response) ([]byt
 		fmt.Println(err)
 		return nil, fmt.Errorf("response body marshal %w", err)
 	}
-	rStr, err := variable.Replace(req.EncodedBody, string(resp), mockResponse.Replacements)
+	rStr, err := replace(req, string(resp), mockResponse.Replacements)
 	if err != nil {
 		fmt.Println(err)
 		return nil, fmt.Errorf("response body replace %w", err)

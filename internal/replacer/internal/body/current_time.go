@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/g8rswimmer/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/model"
 	"github.com/tidwall/sjson"
 )
 
-func CurrentTime(_, resp string, bv model.BodyVariable) (string, error) {
+func CurrentTime(_ *httpx.Request, resp string, bv model.BodyVariable) (string, error) {
 	if len(bv.Args) != 1 {
 		return "", fmt.Errorf("response args not length 1 %d", len(bv.Args))
 	}
