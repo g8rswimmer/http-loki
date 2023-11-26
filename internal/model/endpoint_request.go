@@ -29,17 +29,6 @@ type Request struct {
 	Validations     []BodyVariable   `json:"body_validations"`
 }
 
-func (r Request) QueryVariables() []QueryVariable {
-	vars := make([]QueryVariable, 0, len(r.QueryParameters))
-	for _, q := range r.QueryParameters {
-		if q.Validation == nil {
-			continue
-		}
-		vars = append(vars, *q.Validation)
-	}
-	return vars
-}
-
 type Response struct {
 	StatusCode   int            `json:"status_code"`
 	Body         any            `json:"body"`

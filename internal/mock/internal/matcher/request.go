@@ -49,9 +49,11 @@ func NewRequest(req *http.Request) (*Request, error) {
 
 func (r *Request) Match(req model.Request) (any, error) {
 	if err := r.matchQueryParameters(req); err != nil {
+		fmt.Println(err.Error())
 		return nil, err
 	}
 	if err := r.matchBody(req); err != nil {
+		fmt.Println(err.Error())
 		return nil, err
 	}
 	return r.body, nil
@@ -65,7 +67,7 @@ func (r *Request) matchQueryParameters(req model.Request) error {
 		return fmt.Errorf("request query parameters lenght does not match got: %d expected %d", len(r.queryParameters), len(req.QueryParameters))
 	default:
 	}
-	values, err := query.Validate(r.queryParameters, req.QueryVariables())
+	values, err := query.Validate(r.queryParameters, req.QueryParameters)
 	if err != nil {
 		return fmt.Errorf("request query matching validation: %w", err)
 	}
