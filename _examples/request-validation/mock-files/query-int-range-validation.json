@@ -1,0 +1,25 @@
+{
+    "method": "GET",
+    "endpoint": "/query-int-range-validation",
+    "request":{
+        "query_parameters": [
+            {
+                "key": "id",
+                "value": "{{ validation }}",
+                "validation": {
+                    "func": "intRange",
+                    "args":["0","100"]
+                }
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny"
+        }
+ 
+    }
+}
