@@ -5,18 +5,18 @@ import (
 
 	"github.com/g8rswimmer/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/model"
-	"github.com/g8rswimmer/http-loki/internal/replacer/internal/body"
+	"github.com/g8rswimmer/http-loki/internal/replacer/internal/replace"
 )
 
 type replacement func(*httpx.Request, string, model.BodyVariable) (string, error)
 
 var replacements = map[string]replacement{
-	"uuid":     body.UUID,
-	"path":     body.Path,
-	"currTime": body.CurrentTime,
+	"uuid":     replace.UUID,
+	"path":     replace.Path,
+	"currTime": replace.CurrentTime,
 }
 
-func replace(req *httpx.Request, resp string, vars []model.BodyVariable) (string, error) {
+func replaceVars(req *httpx.Request, resp string, vars []model.BodyVariable) (string, error) {
 	for _, v := range vars {
 		repFunc, has := replacements[v.Func]
 		if !has {

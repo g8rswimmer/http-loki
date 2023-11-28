@@ -19,7 +19,7 @@ func MockResponseReplace(req *httpx.Request, mockResponse model.Response) ([]byt
 		fmt.Println(err)
 		return nil, fmt.Errorf("response body marshal %w", err)
 	}
-	rStr, err := replace(req, string(resp), mockResponse.Replacements)
+	rStr, err := replaceVars(req, string(resp), mockResponse.Replacements)
 	if err != nil {
 		fmt.Println(err)
 		return nil, fmt.Errorf("response body replace %w", err)
