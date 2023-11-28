@@ -1,0 +1,30 @@
+{
+    "method": "GET",
+    "endpoint": "/get-path-replacememt",
+    "request":{
+        "query_parameters": [
+            {
+                "key": "id",
+                "value": "query-id-12345"
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "id": "{{ replacememt }}",
+            "first_name": "Jon",
+            "last_name": "Doe",
+            "language": "en"
+        },
+        "body_replacements":[
+            {
+                "json_path": "id",
+                "func": "path",
+                "prefix": "test|",
+                "args": ["query","id"]
+            }
+        ]
+ 
+    }
+}
