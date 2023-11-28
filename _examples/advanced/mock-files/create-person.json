@@ -43,7 +43,7 @@
                 "json_path": "id",
                 "func": "path",
                 "prefix": "test|",
-                "args": ["person_id"]
+                "args": ["body","person_id"]
             },
             {
                 "json_path": "created_at",
