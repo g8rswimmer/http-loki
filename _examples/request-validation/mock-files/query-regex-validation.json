@@ -1,0 +1,25 @@
+{
+    "method": "GET",
+    "endpoint": "/query-regex-validation",
+    "request":{
+        "query_parameters": [
+            {
+                "key": "created_at",
+                "value": "{{ validation }}",
+                "validation": {
+                    "func": "regex",
+                    "args":["^((?:(\\d{4}-\\d{2}-\\d{2})T(\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?))(Z|[\\+-]\\d{2}:\\d{2})?)$"]
+                }
+            }
+        ]
+    },
+    "response":{
+        "status_code": 200,
+        "body": {
+            "first_name": "John",
+            "last_name": "Funster",
+            "preferred_name": "Jonny"
+        }
+ 
+    }
+}

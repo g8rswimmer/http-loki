@@ -13,7 +13,41 @@
 					"name": "Basic Get Example",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-mock-example",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-mock-example"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Basic Get With Query Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-mock-example-with-query?number=42",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-mock-example-with-query"
+							],
+							"query": [
+								{
+									"key": "number",
+									"value": "42"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -183,6 +217,102 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Request Query Validation UUID Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/query-uuid-validation?id=test%7Cf53c849f-dbad-4d59-87df-2c9e8134355f",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"query-uuid-validation"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "test%7Cf53c849f-dbad-4d59-87df-2c9e8134355f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Query Validation RegEx Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/query-regex-validation?created_at=2016-01-19T15%3A21%3A32.59%2B02%3A00",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"query-regex-validation"
+							],
+							"query": [
+								{
+									"key": "created_at",
+									"value": "2016-01-19T15%3A21%3A32.59%2B02%3A00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Query Validation Int Range Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/query-int-range-validation?id=75",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"query-int-range-validation"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "75"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Query Validation Ignore Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/query-ignore-validation?id=some%20id",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"query-ignore-validation"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "some%20id"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -208,7 +338,7 @@
 					"response": []
 				},
 				{
-					"name": "Response Replacement Path Example",
+					"name": "Response Body Replacement Path Example",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -229,6 +359,30 @@
 							"port": "8000",
 							"path": [
 								"post-path-replacememt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Response Query Replacement Path Example",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/get-path-replacememt?id=query-id-12345",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"get-path-replacememt"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "query-id-12345"
+								}
 							]
 						}
 					},
@@ -291,7 +445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"person_id\": \"534eaf1c-1752-47a8-b5b4-d8f04b4547c3\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Funster\",\n    \"preferred_name\": \"Jonny\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"OH\",\n        \"zip\": \"12345\"\n    },\n    \"phone\": \"+19995551212\"\n}",
+							"raw": "{\n    \"person_id\": \"a8e21b84-2160-46db-91dd-54af2b261643\",\n    \"first_name\": \"Edward\",\n    \"last_name\": \"Cheeseburger\",\n    \"preferred_name\": \"Eddie\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zip\": \"99887\"\n    },\n    \"phone\": \"+18775551212\",\n    \"email\": \"not.my.email@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

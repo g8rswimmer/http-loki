@@ -1,16 +1,32 @@
 package model
 
-type BodyVariable struct {
-	Path   string   `json:"json_path"`
-	Func   string   `json:"func"`
+type VariableParams struct {
 	Args   []string `json:"args"`
 	Prefix string   `json:"prefix"`
 	Suffix string   `json:"suffix"`
 }
 
+type BodyVariable struct {
+	VariableParams
+	Path string `json:"json_path"`
+	Func string `json:"func"`
+}
+
+type QueryVariable struct {
+	VariableParams
+	Func string `json:"func"`
+}
+
+type QueryParameter struct {
+	Key        string         `json:"key"`
+	Value      string         `json:"value"`
+	Validation *QueryVariable `json:"validation"`
+}
+
 type Request struct {
-	Body        any            `json:"body"`
-	Validations []BodyVariable `json:"body_validations"`
+	Body            any              `json:"body"`
+	QueryParameters []QueryParameter `json:"query_parameters"`
+	Validations     []BodyVariable   `json:"body_validations"`
 }
 
 type Response struct {
