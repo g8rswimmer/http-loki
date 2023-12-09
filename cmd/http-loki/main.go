@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/g8rswimmer/http-loki/cmd/server/internal/httpx"
+	"github.com/g8rswimmer/http-loki/cmd/http-loki/internal/httpx"
 	"github.com/g8rswimmer/http-loki/internal/app"
 	"github.com/g8rswimmer/http-loki/internal/config"
 	"github.com/g8rswimmer/http-loki/internal/mock"
