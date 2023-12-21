@@ -491,6 +491,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Create Person Default",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"111\",\n    \"first_name\": \"Edward\",\n    \"last_name\": \"Cheeseburger\",\n    \"preferred_name\": \"Eddie\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zip\": \"99887\"\n    },\n    \"phone\": \"+18775551212\",\n    \"email\": \"not.my.email@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/create-person",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"create-person"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

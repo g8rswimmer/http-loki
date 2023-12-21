@@ -1,0 +1,12 @@
+{
+    "method": "POST",
+    "endpoint": "/create-person",
+    "default_response": true,
+    "response":{
+        "status_code": 400,
+        "body": {
+            "error": "bad request",
+            "msg": "request not found"
+        }
+    }
+}
