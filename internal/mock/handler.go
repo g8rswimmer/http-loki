@@ -21,7 +21,8 @@ type pair struct {
 }
 
 type Handler struct {
-	pairs []pair
+	pairs          []pair
+	defaultRespone *model.Response
 }
 
 func (h *Handler) Add(req model.Request, resp model.Response) {
@@ -32,6 +33,10 @@ func (h *Handler) Add(req model.Request, resp model.Response) {
 	h.pairs = append(h.pairs, p)
 }
 
+func (h *Handler) AddDefaultResponse(resp model.Response) {
+	h.defaultRespone = &resp
+}
+
 func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := httpx.NewRequest(r)
 	if err != nil {
@@ -39,21 +44,21 @@ func (h *Handler) HTTPHandler(w http.ResponseWriter, r *http.Request) {
 		h.errorResponse(w, errorStatusCode, "mock request error", err)
 		return
 	}
-	reqPair, err := h.findPair(request)
+	resp, err := h.findResponse(request)
 	if err != nil {
 		fmt.Println(err)
 		h.errorResponse(w, errorStatusCode, "mock request error", err)
 		return
 	}
 
-	respBody, err := replacer.MockResponseReplace(request, reqPair.response)
+	respBody, err := replacer.MockResponseReplace(request, *resp)
 	if err != nil {
 		h.errorResponse(w, errorStatusCode, "mock response error", err)
 		return
 	}
 
 	w.Header().Add("content-type", "application/json")
-	w.WriteHeader(reqPair.response.StatusCode)
+	w.WriteHeader(resp.StatusCode)
 	w.Write(respBody)
 }
 
@@ -75,15 +80,19 @@ func (h Handler) errorResponse(w http.ResponseWriter, statusCode int, msg string
 	_ = json.NewEncoder(w).Encode(body)
 }
 
-func (h *Handler) findPair(request *httpx.Request) (pair, error) {
-	if len(h.pairs) == 0 {
-		return pair{}, fmt.Errorf("no request pair")
-	}
+func (h *Handler) findResponse(request *httpx.Request) (*model.Response, error) {
+	resp := h.defaultRespone
 	for _, p := range h.pairs {
 		if err := matcher.MockRequestMatch(request, p.request); err == nil {
-			return p, nil
+			resp = &p.response
+			break
 		}
 	}
-	return pair{}, fmt.Errorf("no request pair")
+	switch {
+	case resp == nil:
+		return nil, fmt.Errorf("no request pair")
+	default:
+		return resp, nil
+	}
 
 }

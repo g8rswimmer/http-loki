@@ -79,6 +79,33 @@
 					"response": []
 				},
 				{
+					"name": "Basic Post Default Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\",\n    \"msg\": \"this does not matter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock--default-example",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock--default-example"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Basic Post Bad Request Example",
 					"request": {
 						"method": "POST",
@@ -446,6 +473,33 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"person_id\": \"a8e21b84-2160-46db-91dd-54af2b261643\",\n    \"first_name\": \"Edward\",\n    \"last_name\": \"Cheeseburger\",\n    \"preferred_name\": \"Eddie\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zip\": \"99887\"\n    },\n    \"phone\": \"+18775551212\",\n    \"email\": \"not.my.email@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/create-person",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"create-person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person Default",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"person_id\": \"111\",\n    \"first_name\": \"Edward\",\n    \"last_name\": \"Cheeseburger\",\n    \"preferred_name\": \"Eddie\",\n    \"address\": {\n        \"street1\": \"123 Main St\",\n        \"city\": \"Springfield\",\n        \"state\": \"IL\",\n        \"zip\": \"99887\"\n    },\n    \"phone\": \"+18775551212\",\n    \"email\": \"not.my.email@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

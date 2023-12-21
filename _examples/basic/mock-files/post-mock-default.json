@@ -1,0 +1,13 @@
+{
+    "method": "POST",
+    "endpoint": "/post-mock--default-example",
+    "default_response": true,
+    "response":{
+        "status_code": 200,
+        "body": {
+            "msg": "Post Mock Default Example",
+            "number": 41,
+            "boolean": true
+        }
+    }
+}
