@@ -36,8 +36,9 @@ type Response struct {
 }
 
 type Mock struct {
-	Method   string   `json:"method"`
-	Endpoint string   `json:"endpoint"`
-	Request  Request  `json:"request"`
-	Response Response `json:"response"`
+	Method          string   `json:"method"`
+	Endpoint        string   `json:"endpoint"`
+	Request         Request  `json:"request"`
+	DefaultResponse bool     `json:"default_response"`
+	Response        Response `json:"response"`
 }

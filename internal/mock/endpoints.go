@@ -12,7 +12,12 @@ func (e endpoints) add(m *model.Mock) bool {
 	if !ok {
 		e[k] = &Handler{}
 	}
-	e[k].Add(m.Request, m.Response)
+	switch {
+	case m.DefaultResponse:
+		e[k].AddDefaultResponse(m.Response)
+	default:
+		e[k].Add(m.Request, m.Response)
+	}
 	return ok
 }
 

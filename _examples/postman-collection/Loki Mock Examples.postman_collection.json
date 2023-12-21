@@ -79,6 +79,33 @@
 					"response": []
 				},
 				{
+					"name": "Basic Post Default Example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first\": \"Jon\",\n    \"last\": \"Doe\",\n    \"msg\": \"this does not matter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/post-mock--default-example",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"post-mock--default-example"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Basic Post Bad Request Example",
 					"request": {
 						"method": "POST",
