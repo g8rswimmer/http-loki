@@ -16,6 +16,7 @@ var validations = map[string]validation{
 	"ignore":   ignore,
 	"intRange": intRange,
 	"regex":    regex,
+	"oneOf":    oneOf,
 }
 
 func Validate(values url.Values, params []model.QueryParameter) (url.Values, error) {

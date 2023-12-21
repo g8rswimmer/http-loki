@@ -1,0 +1,38 @@
+{
+    "method": "POST",
+    "endpoint": "/post-one-of-validation",
+    "request": {
+        "query_parameters": [
+            {
+                "key": "vegetables",
+                "value": "{{ validation }}",
+                "validation": {
+                    "func": "oneOf",
+                    "args": ["celery", "asparagus", "beans"]
+                }
+            }
+        ],
+        "body": {
+            "fruit": "{{ validation }}"
+        },
+        "body_validations": [
+            {
+                "json_path": "fruit",
+                "func": "oneOf",
+                "args": [
+                    "apple",
+                    "orange",
+                    "peach",
+                    "pineapple"
+                ]
+            }
+        ]
+    },
+    "response": {
+        "status_code": 200,
+        "body": {
+            "transaction_id": 123456,
+            "msg": "ok"
+        }
+    }
+}

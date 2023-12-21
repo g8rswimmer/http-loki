@@ -16,6 +16,7 @@ var validations = map[string]validation{
 	"intRange": intRange,
 	"ignore":   ignore,
 	"regex":    regex,
+	"oneOf":    oneOf,
 }
 
 func Validate(req string, vars []model.BodyVariable) (string, error) {

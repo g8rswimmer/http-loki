@@ -1,8 +1,8 @@
 # HTTP-Loki
 HTTP-Loki is a mocking service.  One can define request-response pairs for endpoints.  This is useful in testing against third party systems.
 
-## Varables
-This mocking service allows for varables in the request and response.  This allows for validtion of fields that may be generated from the service.  If the field is not assocaited with a varaible, then a strict comparison will be done. 
+## Variables
+This mocking service allows for variables in the request and response.  This allows for validtion of fields that may be generated from the service.  If the field is not assocaited with a varaible, then a strict comparison will be done. 
 
 The variables are defined in the mock file for the fields.  The following object will be defined.
 
@@ -32,6 +32,7 @@ Request body variables will validate the field assocaited with them.  In the req
 | `intRange` | Validates that the field is an int between the range | min and max | N |
 | `ignore` | Will ignore that value when comparing | none | Y |
 | `regex` | Validates against a regex expersion | expersion | Y |
+| `oneOf` | Validates that a field is in the args | string array | N |
 
 #### Example
 ```json
